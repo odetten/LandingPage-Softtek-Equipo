@@ -1,1 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
+
+body {
+  font-family: "Urbanist", sans-serif;
+}
+
+.hero-typewriter-caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.8em;
+  margin-left: 0.05em;
+  vertical-align: -0.04em;
+  background-color: currentColor;
+  animation: hero-caret-blink 0.7s steps(1, end) infinite;
+}
+
+.hero-typewriter-caret--hidden {
+  opacity: 0;
+  animation: none;
+}
+
+.hero-banana {
+  transform: translate(-50%, -140vh);
+  will-change: transform;
+}
+
+.hero-banana--landed {
+  animation: hero-banana-drop 1s cubic-bezier(0.22, 0.8, 0.3, 1) forwards;
+}
+
+.banana-model-overlay {
+  transform: translate(-50%, -50%);
+  animation: banana-model-overlay-in 0.35s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+@keyframes hero-caret-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes hero-banana-drop {
+  0% {
+    transform: translate(-50%, -140vh);
+  }
+
+  72% {
+    transform: translate(-50%, -43%);
+  }
+
+  86% {
+    transform: translate(-50%, -55%);
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes banana-model-overlay-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-typewriter-caret {
+    animation: none;
+  }
+
+  .hero-banana--landed {
+    animation: none;
+    transform: translate(-50%, -50%);
+  }
+
+  .banana-model-overlay {
+    animation: none;
+  }
+}

@@ -1,9 +1,38 @@
+import { lazy, Suspense, useEffect, useState } from "react";
+import Header from "./components/Header";
+import Hero from "./components/Hero"
+
+const BananaOverlay = lazy(() => import("./components/BananaOverlay"));
+
 function App() {
+  const [isBananaModelOpen, setIsBananaModelOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isBananaModelOpen) return undefined;
+
+    const closeWithEscape = (event) => {
+      if (event.key === "Escape") setIsBananaModelOpen(false);
+    };
+
+    window.addEventListener("keydown", closeWithEscape);
+    return () => window.removeEventListener("keydown", closeWithEscape);
+  }, [isBananaModelOpen]);
+
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-white">
-        React + Tailwind
-      </h1>
+    <div>
+      <Header
+        isModelOpen={isBananaModelOpen}
+        onToggleModel={() => setIsBananaModelOpen((isOpen) => !isOpen)}
+      />
+      
+      <Hero />
+
+      {isBananaModelOpen && (
+        <Suspense fallback={null}>
+          <BananaOverlay />
+        </Suspense>
+      )}
+
     </div>
   )
 }
