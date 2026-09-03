@@ -12,13 +12,16 @@ export default function useFadeOnScroll({ holdOffset = 0, fadeDistance } = {}) {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
 
-      // Si no se pasa fadeDistance, usa el alto del viewport (comportamiento actual)
       const distance = fadeDistance ?? vh;
 
       const progress = Math.min(
-        Math.max((holdOffset - rect.top) / distance, 0),
-        1
-      );
+  Math.max((vh * 0.35 - rect.top) / distance, 0),
+  1
+);
+
+el.style.opacity = 1 - progress;
+el.style.transform = `translateY(${progress * -40}px)`;
+
 
       el.style.opacity = 1 - progress;
       el.style.transform = `translateY(${progress * -40}px)`;
