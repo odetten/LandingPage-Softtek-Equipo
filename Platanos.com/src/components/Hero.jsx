@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const HERO_TITLE = "aaaAAaAAaa";
+const HERO_TITLE = "Platanos";
 
 function Hero() {
     const [prefersReducedMotion] = useState(() =>
@@ -59,7 +59,7 @@ function Hero() {
                         font-black
                         leading-none
 
-                        text-[rgb(236,236,0)]
+                        text-[#1a1a1a]
 
                         sm:text-[80px]
                         md:text-[110px]

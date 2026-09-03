@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero"
+import BananaTypes from "./components/BananaTypes";
 
 const BananaOverlay = lazy(() => import("./components/BananaOverlay"));
 
@@ -26,6 +27,8 @@ function App() {
       />
       
       <Hero />
+
+      <BananaTypes />
 
       {isBananaModelOpen && (
         <Suspense fallback={null}>
