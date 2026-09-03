@@ -1,125 +1,53 @@
-function Header() {
+const navigationItems = [
+    { label: "Inicio", href: "#inicio" },
+    { label: "Datos", href: "#datos" },
+    { label: "Tipos", href: "#tipos" },
+    { label: "Contacto", href: "#contacto" },
+];
+
+function Header({ isModelOpen, onToggleModel }) {
     return (
-        <header className="fixed top-4 left-0 z-50 w-full px-[6%]">
-
-            <div
-                className="
-                    flex
-                    h-[56px]
-                    items-center
-                    justify-between
-
-                    rounded-[22px]
-                    border
-                    border-gray-200/60
-
-                    bg-white/70
-                    dark:bg-[#1a1a1a]/70
-
-                    backdrop-blur-md
-                    shadow-sm
-
-                    px-5
-                "
+        <header className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between px-[8%]">
+            <button
+                type="button"
+                aria-label={isModelOpen ? "Ocultar modelo 3D" : "Mostrar modelo 3D"}
+                aria-pressed={isModelOpen}
+                onClick={onToggleModel}
+                className="cursor-pointer border-0 bg-transparent p-0 text-[#1a1a1a]"
             >
+                <span className="text-xl font-bold sm:text-2xl">Hola</span>
+            </button>
 
-                <h2 className="text-xl font-bold text-[#222] dark:text-white">
-                    Hola
-                </h2>
-
-                <nav className="flex items-center gap-3">
-
+            <nav
+                aria-label="Navegación principal"
+                className="flex items-center gap-4 sm:gap-[25px]"
+            >
+                {navigationItems.map((item) => (
                     <a
-                        href="#inicio"
+                        key={item.href}
+                        href={item.href}
                         className="
-                            rounded-full
-                            px-4
-                            py-2
-
-                            text-sm
+                            text-xs
                             font-medium
-                            text-[#222]
-                            dark:text-white
-
-                            hover:bg-black/5
-                            dark:hover:bg-white/10
-
-
+                            text-[#1a1a1a]
+                            opacity-80
                             no-underline
+                            transition-opacity
+                            duration-200
+                            hover:opacity-100
+                            focus-visible:rounded-sm
+                            focus-visible:outline-none
+                            focus-visible:ring-2
+                            focus-visible:ring-[#1a1a1a]
+                            focus-visible:ring-offset-2
+                            focus-visible:ring-offset-[#f4ff95]
+                            sm:text-sm
                         "
                     >
-                        Inicio
+                        {item.label}
                     </a>
-
-                    <a
-                        href="#seccion2"
-                        className="
-                            rounded-full
-                            px-4
-                            py-2
-
-                            text-sm
-                            font-medium
-                            text-[#222]
-                            dark:text-white
-
-                            hover:bg-black/5
-                            dark:hover:bg-white/10
-
-
-                            no-underline
-                        "
-                    >
-                        A
-                    </a>
-
-                    <a
-                        href="#seccion3"
-                        className="
-                            rounded-full
-                            px-4
-                            py-2
-
-                            text-sm
-                            font-medium
-                            text-[#222]
-                            dark:text-white
-
-                            hover:bg-black/5
-                            dark:hover:bg-white/10
-
-
-                            no-underline
-                        "
-                    >
-                        AA
-                    </a>
-
-                    <a
-                        href="#tarjetas"
-                        className="
-                            rounded-full
-                            px-4
-                            py-2
-
-                            text-sm
-                            font-medium
-                            text-[#222]
-                            dark:text-white
-
-                            hover:bg-black/5
-                            dark:hover:bg-white/10
-
-                            no-underline
-                        "
-                    >
-                        AAA
-                    </a>
-
-                </nav>
-
-            </div>
-
+                ))}
+            </nav>
         </header>
     );
 }
