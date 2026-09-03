@@ -63,6 +63,9 @@ La estructura visual puede evolucionar durante el desarrollo, pero debe contempl
 
 No todas las secciones tienen que ser tarjetas. Las secciones principales deben sentirse como partes continuas de una misma experiencia; las tarjetas se reservaran para elementos repetidos que realmente necesiten agrupacion.
 
+### Inspiración
+Nos inspiramos del tipo de pagina que es Apple, sus carruceles y animaciones
+
 ## 4. Estado actual
 
 El proyecto se encuentra en una etapa inicial de configuracion.
