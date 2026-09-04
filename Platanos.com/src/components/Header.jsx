@@ -124,7 +124,7 @@ function Header() {
                 className="site-header__adaptive no-underline"
                 onClick={() => setIsMenuOpen(false)}
             >
-                <span className="text-xl font-bold sm:text-2xl">Hola</span>
+                <span className="text-xl font-bold sm:text-2xl">Plátanos</span>
             </a>
 
             <button

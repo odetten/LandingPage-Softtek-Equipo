@@ -112,7 +112,6 @@ a {
   display: grid;
   grid-template-columns: minmax(420px, 42%) minmax(0, 58%);
   min-height: 100svh;
-  scroll-margin-top: 80px;
   background: #f7f7f2;
 }
 

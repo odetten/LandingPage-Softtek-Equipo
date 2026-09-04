@@ -16,7 +16,7 @@ function App() {
         <Hero />
         <BananaTypes />
         <ComedianSection />
-        <section id="interactivo" className="scroll-mt-20" aria-label="Comparador de alturas en plátanos">
+        <section id="interactivo" aria-label="Comparador de alturas en plátanos">
           <Suspense fallback={<p className="p-8 text-center" role="status">Cargando comparador…</p>}>
             <BananaComparisons />
           </Suspense>
