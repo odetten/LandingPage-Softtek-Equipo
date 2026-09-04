@@ -15,6 +15,7 @@ const BANANA_TYPES = [
         id: "amarillo",
         name: "Plátano amarillo",
         background: "#E8E83F",
+        cursorFilter: "hue-rotate(0deg) saturate(1)",
         accent: "#6B5B00",
         ink: "#1C1B12",
         center: [14, 4],
@@ -25,6 +26,7 @@ const BANANA_TYPES = [
         id: "plantain",
         name: "Plantain",
         background: "#A8C96F",
+        cursorFilter: "hue-rotate(38deg) saturate(1.1)",
         accent: "#315A28",
         ink: "#142313",
         center: [-8, 3],
@@ -35,6 +37,7 @@ const BANANA_TYPES = [
         id: "dominicano",
         name: "Dominicano",
         background: "#F0AE54",
+        cursorFilter: "hue-rotate(-25deg) saturate(1.25)",
         accent: "#8B4518",
         ink: "#271409",
         center: [-82, 15],
@@ -45,6 +48,7 @@ const BANANA_TYPES = [
         id: "morado-rojo",
         name: "Morado / Rojo",
         background: "#A94F63",
+        cursorFilter: "hue-rotate(-75deg) saturate(0.95)",
         accent: "#5F2034",
         ink: "#FFF8F5",
         center: [86, 7],
@@ -55,6 +59,7 @@ const BANANA_TYPES = [
         id: "azul",
         name: "Azul",
         background: "#7FA8D0",
+        cursorFilter: "hue-rotate(155deg) saturate(0.85)",
         accent: "#294D70",
         ink: "#102135",
         center: [142, -5],
@@ -134,6 +139,7 @@ function BananaTypes() {
     return (
         <section
             id="tipos"
+            data-banana-cursor-filter={activeType.cursorFilter}
             aria-labelledby="growing-regions-title"
             className="banana-types"
             style={{

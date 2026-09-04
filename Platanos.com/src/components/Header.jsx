@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { getBackgroundBehindElement, getContrastingTextColor } from "../utils/headerContrast";
+import { getActiveSection } from "../utils/navigation";
 
 const navigationItems = [
     { label: "Inicio", href: "#inicio", available: true },
     { label: "Beneficios", href: "#beneficios", available: true },
-    { label: "Interactivo", href: "#interactivo", available: true },
     { label: "Tipos y origen", href: "#tipos", available: true },
     { label: "Arte y curiosidades", href: "#arte", available: true },
-    { label: "Contacto", href: "#contacto", available: false },
+    { label: "Interactivo", href: "#interactivo", available: true },
+    { label: "Contacto", href: "#contacto", available: true },
 ];
 
 function Header() {
@@ -15,6 +16,18 @@ function Header() {
     const menuButtonRef = useRef(null);
     const [textColors, setTextColors] = useState({});
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches);
+    const [activeSection, setActiveSection] = useState("inicio");
+
+    useEffect(() => {
+        const mobile = window.matchMedia("(max-width: 1023px)");
+        const onChange = (event) => {
+            setIsMobile(event.matches);
+            if (!event.matches) setIsMenuOpen(false);
+        };
+        mobile.addEventListener("change", onChange);
+        return () => mobile.removeEventListener("change", onChange);
+    }, []);
 
     useEffect(() => {
         if (!isMenuOpen) return undefined;
@@ -27,18 +40,12 @@ function Header() {
             setIsMenuOpen(false);
             menuButtonRef.current?.focus();
         };
-        const desktop = window.matchMedia("(min-width: 1024px)");
-        const closeOnDesktop = (event) => {
-            if (event.matches) setIsMenuOpen(false);
-        };
 
         document.addEventListener("pointerdown", closeOutside);
         document.addEventListener("keydown", closeWithEscape);
-        desktop.addEventListener("change", closeOnDesktop);
         return () => {
             document.removeEventListener("pointerdown", closeOutside);
             document.removeEventListener("keydown", closeWithEscape);
-            desktop.removeEventListener("change", closeOnDesktop);
         };
     }, [isMenuOpen]);
 
@@ -50,6 +57,15 @@ function Header() {
         const updateContrast = () => {
             frame = 0;
             const nextColors = {};
+            const sections = navigationItems.flatMap((item) => {
+                const section = document.getElementById(item.href.slice(1));
+                return section ? [{ id: section.id, top: section.getBoundingClientRect().top }] : [];
+            });
+            setActiveSection(getActiveSection(
+                sections,
+                header.getBoundingClientRect().bottom + 16,
+                window.scrollY > 0 && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2
+            ));
 
             header.querySelectorAll("[data-header-contrast]").forEach((element) => {
                 nextColors[element.dataset.headerContrast] = getContrastingTextColor(
@@ -124,7 +140,7 @@ function Header() {
                 className="site-header__adaptive no-underline"
                 onClick={() => setIsMenuOpen(false)}
             >
-                <span className="text-xl font-bold sm:text-2xl">Plátanos</span>
+                <span className="site-wordmark">Plátanos<span>.</span></span>
             </a>
 
             <button
@@ -139,24 +155,27 @@ function Header() {
                 onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
             >
                 {isMenuOpen ? "Cerrar" : "Menú"}
-                <span aria-hidden="true">{isMenuOpen ? "×" : "+"}</span>
+                <span aria-hidden="true">+</span>
             </button>
 
             <nav
                 id="primary-navigation"
                 aria-label="Navegación principal"
+                inert={isMobile && !isMenuOpen ? true : undefined}
+                aria-hidden={isMobile && !isMenuOpen ? true : undefined}
                 className={`site-header__navigation${isMenuOpen ? " is-open" : ""}`}
             >
-                {navigationItems.map((item) => (
+                {navigationItems.map((item, index) => (
                     <a
                         key={item.href}
                         href={item.available ? item.href : undefined}
                         role={item.available ? undefined : "link"}
                         aria-disabled={item.available ? undefined : true}
+                        aria-current={activeSection === item.href.slice(1) ? "location" : undefined}
                         aria-label={item.available ? undefined : `${item.label}, próximamente`}
                         title={item.available ? undefined : "Próximamente"}
                         data-header-contrast={item.href}
-                        style={{ color: isMenuOpen ? "#1a1a1a" : textColors[item.href] ?? "#1a1a1a" }}
+                        style={{ "--nav-index": index, color: isMobile ? "#1a1a1a" : textColors[item.href] ?? "#1a1a1a" }}
                         className="site-header__adaptive site-header__link"
                         onClick={() => {
                             if (item.available) setIsMenuOpen(false);

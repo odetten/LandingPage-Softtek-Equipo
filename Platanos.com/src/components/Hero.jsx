@@ -25,7 +25,7 @@ function Hero() {
             </div>
 
             <div className="banana-hero__footer">
-                <a className="banana-hero__scroll" href="#tipos" data-reveal="rise" data-reveal-delay="560">
+                <a className="banana-hero__scroll" href="#beneficios" data-reveal="rise" data-reveal-delay="560">
                     <span className="banana-hero__scroll-icon" aria-hidden="true">↓</span>
                     Ver más
                 </a>
