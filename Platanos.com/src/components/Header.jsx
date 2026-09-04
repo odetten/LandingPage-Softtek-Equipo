@@ -4,9 +4,9 @@ import { getBackgroundBehindElement, getContrastingTextColor } from "../utils/he
 const navigationItems = [
     { label: "Inicio", href: "#inicio", available: true },
     { label: "Beneficios", href: "#beneficios", available: false },
-    { label: "Interactivo", href: "#interactivo", available: false },
+    { label: "Interactivo", href: "#interactivo", available: true },
     { label: "Tipos y origen", href: "#tipos", available: true },
-    { label: "Arte y curiosidades", href: "#arte", available: false },
+    { label: "Arte y curiosidades", href: "#arte", available: true },
     { label: "Contacto", href: "#contacto", available: false },
 ];
 
