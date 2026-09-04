@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect, useState } from "react";
+import BananasCarousel from "./components/BananasCarousel";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Hero from "./components/Hero"
+import Hero from "./components/Hero";
 
 const BananaOverlay = lazy(() => import("./components/BananaOverlay"));
 
@@ -24,8 +26,10 @@ function App() {
         isModelOpen={isBananaModelOpen}
         onToggleModel={() => setIsBananaModelOpen((isOpen) => !isOpen)}
       />
-      
+
       <Hero />
+      <BananasCarousel />
+      <Footer />
 
       {isBananaModelOpen && (
         <Suspense fallback={null}>
