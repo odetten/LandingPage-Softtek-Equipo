@@ -3,7 +3,7 @@ import { getBackgroundBehindElement, getContrastingTextColor } from "../utils/he
 
 const navigationItems = [
     { label: "Inicio", href: "#inicio", available: true },
-    { label: "Beneficios", href: "#beneficios", available: false },
+    { label: "Beneficios", href: "#beneficios", available: true },
     { label: "Interactivo", href: "#interactivo", available: true },
     { label: "Tipos y origen", href: "#tipos", available: true },
     { label: "Arte y curiosidades", href: "#arte", available: true },
