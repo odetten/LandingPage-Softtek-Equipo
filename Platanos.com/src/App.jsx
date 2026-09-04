@@ -1,43 +1,17 @@
-import { lazy, Suspense, useEffect, useState } from "react";
 import Header from "./components/Header";
-import Hero from "./components/Hero"
+import Hero from "./components/Hero";
 import BananaTypes from "./components/BananaTypes";
-
-const BananaOverlay = lazy(() => import("./components/BananaOverlay"));
+import useScrollReveal from "./hooks/useScrollReveal";
 
 function App() {
-  const [isBananaModelOpen, setIsBananaModelOpen] = useState(false);
-
-  useEffect(() => {
-    if (!isBananaModelOpen) return undefined;
-
-    const closeWithEscape = (event) => {
-      if (event.key === "Escape") setIsBananaModelOpen(false);
-    };
-
-    window.addEventListener("keydown", closeWithEscape);
-    return () => window.removeEventListener("keydown", closeWithEscape);
-  }, [isBananaModelOpen]);
-
+  const revealRef = useScrollReveal();
   return (
-    <div>
-      <Header
-        isModelOpen={isBananaModelOpen}
-        onToggleModel={() => setIsBananaModelOpen((isOpen) => !isOpen)}
-      />
-      
+    <div ref={revealRef}>
+      <Header />
       <Hero />
-
       <BananaTypes />
-
-      {isBananaModelOpen && (
-        <Suspense fallback={null}>
-          <BananaOverlay />
-        </Suspense>
-      )}
-
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

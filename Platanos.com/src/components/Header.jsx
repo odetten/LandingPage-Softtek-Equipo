@@ -2,15 +2,45 @@ import { useEffect, useRef, useState } from "react";
 import { getBackgroundBehindElement, getContrastingTextColor } from "../utils/headerContrast";
 
 const navigationItems = [
-    { label: "Inicio", href: "#inicio" },
-    { label: "Datos", href: "#datos" },
-    { label: "Tipos", href: "#tipos" },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Inicio", href: "#inicio", available: true },
+    { label: "Beneficios", href: "#beneficios", available: false },
+    { label: "Interactivo", href: "#interactivo", available: false },
+    { label: "Tipos y origen", href: "#tipos", available: true },
+    { label: "Arte y curiosidades", href: "#arte", available: false },
+    { label: "Contacto", href: "#contacto", available: false },
 ];
 
-function Header({ isModelOpen, onToggleModel }) {
+function Header() {
     const headerRef = useRef(null);
+    const menuButtonRef = useRef(null);
     const [textColors, setTextColors] = useState({});
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (!isMenuOpen) return undefined;
+
+        const closeOutside = (event) => {
+            if (!headerRef.current.contains(event.target)) setIsMenuOpen(false);
+        };
+        const closeWithEscape = (event) => {
+            if (event.key !== "Escape") return;
+            setIsMenuOpen(false);
+            menuButtonRef.current?.focus();
+        };
+        const desktop = window.matchMedia("(min-width: 1024px)");
+        const closeOnDesktop = (event) => {
+            if (event.matches) setIsMenuOpen(false);
+        };
+
+        document.addEventListener("pointerdown", closeOutside);
+        document.addEventListener("keydown", closeWithEscape);
+        desktop.addEventListener("change", closeOnDesktop);
+        return () => {
+            document.removeEventListener("pointerdown", closeOutside);
+            document.removeEventListener("keydown", closeWithEscape);
+            desktop.removeEventListener("change", closeOnDesktop);
+        };
+    }, [isMenuOpen]);
 
     useEffect(() => {
         const header = headerRef.current;
@@ -86,36 +116,51 @@ function Header({ isModelOpen, onToggleModel }) {
 
     return (
         <header ref={headerRef} className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between px-[8%]">
-            <button
-                type="button"
+            <a
+                href="#inicio"
                 data-header-contrast="logo"
                 style={{ color: textColors.logo ?? "#1a1a1a" }}
-                aria-label={isModelOpen ? "Ocultar modelo 3D" : "Mostrar modelo 3D"}
-                aria-pressed={isModelOpen}
-                onClick={onToggleModel}
-                className="site-header__adaptive cursor-pointer border-0 bg-transparent p-0"
+                aria-label="Plátanos, volver al inicio"
+                className="site-header__adaptive no-underline"
+                onClick={() => setIsMenuOpen(false)}
             >
                 <span className="text-xl font-bold sm:text-2xl">Hola</span>
+            </a>
+
+            <button
+                ref={menuButtonRef}
+                type="button"
+                className="site-header__adaptive site-header__menu-toggle"
+                data-header-contrast="menu"
+                style={{ color: textColors.menu ?? "#1a1a1a" }}
+                aria-expanded={isMenuOpen}
+                aria-controls="primary-navigation"
+                aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+                onClick={() => setIsMenuOpen((isOpen) => !isOpen)}
+            >
+                {isMenuOpen ? "Cerrar" : "Menú"}
+                <span aria-hidden="true">{isMenuOpen ? "×" : "+"}</span>
             </button>
 
             <nav
+                id="primary-navigation"
                 aria-label="Navegación principal"
-                className="flex items-center gap-4 sm:gap-[25px]"
+                className={`site-header__navigation${isMenuOpen ? " is-open" : ""}`}
             >
                 {navigationItems.map((item) => (
                     <a
                         key={item.href}
-                        href={item.href}
+                        href={item.available ? item.href : undefined}
+                        role={item.available ? undefined : "link"}
+                        aria-disabled={item.available ? undefined : true}
+                        aria-label={item.available ? undefined : `${item.label}, próximamente`}
+                        title={item.available ? undefined : "Próximamente"}
                         data-header-contrast={item.href}
-                        style={{ color: textColors[item.href] ?? "#1a1a1a" }}
-                        className="
-                            site-header__adaptive
-                            text-xs
-                            font-medium
-                            no-underline
-                            hover:opacity-80
-                            sm:text-sm
-                        "
+                        style={{ color: isMenuOpen ? "#1a1a1a" : textColors[item.href] ?? "#1a1a1a" }}
+                        className="site-header__adaptive site-header__link"
+                        onClick={() => {
+                            if (item.available) setIsMenuOpen(false);
+                        }}
                     >
                         {item.label}
                     </a>

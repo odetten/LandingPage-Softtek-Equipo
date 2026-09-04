@@ -1,117 +1,64 @@
-import { useEffect, useState } from "react";
-
-const HERO_TITLE = "Platanos";
+const BANANA_IMAGE = "/img/banana-hero.png";
 
 function Hero() {
-    const [prefersReducedMotion] = useState(() =>
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
-    const [visibleCharacters, setVisibleCharacters] = useState(() =>
-        prefersReducedMotion ? HERO_TITLE.length : 0
-    );
-    const [isTypingComplete, setIsTypingComplete] = useState(prefersReducedMotion);
-
-    useEffect(() => {
-        if (prefersReducedMotion) return undefined;
-
-        let currentCharacter = 0;
-        let bananaDropTimeout;
-
-        const typingInterval = window.setInterval(() => {
-            currentCharacter += 1;
-            setVisibleCharacters(currentCharacter);
-
-            if (currentCharacter === HERO_TITLE.length) {
-                window.clearInterval(typingInterval);
-                bananaDropTimeout = window.setTimeout(() => {
-                    setIsTypingComplete(true);
-                }, 180);
-            }
-        }, 120);
-
-        return () => {
-            window.clearInterval(typingInterval);
-            window.clearTimeout(bananaDropTimeout);
-        };
-    }, [prefersReducedMotion]);
-
     return (
-        <section
-            id="inicio"
-            className="
-                relative
-                flex
-                min-h-screen
-                items-center
-                overflow-hidden
-                justify-center
-                text-center
-
-                bg-[#f4ff95]
-            "
-        >
-            <div className="relative z-10">
-                <h1
-                    aria-label={HERO_TITLE}
-                    className="
-                        grid
-                        text-[60px]
-                        font-black
-                        leading-none
-
-                        text-[#1a1a1a]
-
-                        sm:text-[80px]
-                        md:text-[110px]
-                        lg:text-[150px]
-                    "
-                >
-                    <span
-                        aria-hidden="true"
-                        className="invisible col-start-1 row-start-1"
-                    >
-                        {HERO_TITLE}
-                    </span>
-                    <span
-                        aria-hidden="true"
-                        className="col-start-1 row-start-1 text-left"
-                    >
-                        {HERO_TITLE.slice(0, visibleCharacters)}
-                        <span
-                            className={`hero-typewriter-caret ${
-                                isTypingComplete ? "hero-typewriter-caret--hidden" : ""
-                            }`}
-                        />
-                    </span>
+        <section id="inicio" className="banana-hero" aria-labelledby="hero-title">
+            <div className="banana-hero__stage">
+                <h1 id="hero-title" className="banana-hero__title">
+                    <span data-reveal="line" data-reveal-delay="60">Puro arte.</span>
+                    <span className="banana-hero__gradient" data-reveal="line" data-reveal-delay="220">Con cáscara.</span>
                 </h1>
+
+                <div className="banana-hero__fruit">
+                    <img
+                        data-reveal="fruit"
+                        data-reveal-delay="360"
+                        src={BANANA_IMAGE}
+                        alt="Plátano amarillo con cáscara"
+                        draggable="false"
+                        fetchPriority="high"
+                        decoding="async"
+                        width="1536"
+                        height="1024"
+                    />
+                </div>
             </div>
 
-            <div
-                className={`
-                    hero-banana
-                    absolute
-                    left-1/2
-                    top-1/2
-                    z-20
-                    ${isTypingComplete ? "hero-banana--landed" : ""}
-                `}
-            >
-                <img
-                    src="/img/A.png"
-                    alt="Plátano amarillo"
-                    draggable="false"
-                    className="
-                        h-auto
-                        w-[80vw]
-                        max-w-[650px]
+            <div className="banana-hero__footer">
+                <a className="banana-hero__scroll" href="#tipos" data-reveal="rise" data-reveal-delay="560">
+                    <span className="banana-hero__scroll-icon" aria-hidden="true">↓</span>
+                    Ver más
+                </a>
 
-                        md:w-[55vw]
-                        lg:w-[45vw]
-                    "
-                />
+                <p className="banana-hero__signature" data-reveal="rise" data-reveal-delay="650">Plátanos<span>.</span></p>
 
+                <aside className="hero-art-card" aria-labelledby="hero-art-title" data-reveal="rise" data-reveal-delay="740">
+                    <a
+                        className="hero-art-card__link"
+                        href="https://press.warhol.org/press/the-velvet-underground-nico-scepter-studio-sessions-public-programs/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="La portada de Andy Warhol: leer la historia en The Andy Warhol Museum (se abre en otra pestaña)"
+                    >
+                        <img
+                            className="hero-art-card__image"
+                            src="/img/Warhol.jpg"
+                            alt="El plátano amarillo y negro de la portada diseñada por Andy Warhol"
+                            width="1536"
+                            height="1522"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                        <div className="hero-art-card__copy">
+                            <div className="hero-art-card__meta">
+                                <span className="hero-art-card__category">Arte · 1967</span>
+                            </div>
+                            <h2 id="hero-art-title">Antes de ser snack, <span>fue portada.</span></h2>
+                            <p>Andy Warhol diseñó la portada de <cite>The Velvet Underground &amp; Nico</cite>.</p>
+                        </div>
+                    </a>
+                </aside>
             </div>
-
         </section>
     );
 }

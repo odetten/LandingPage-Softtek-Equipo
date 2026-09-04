@@ -8,12 +8,13 @@ import {
     ZoomableGroup,
 } from "react-simple-maps";
 import worldMap from "world-atlas/countries-110m.json";
+import useMapMotion from "../hooks/useMapMotion";
 
 const BANANA_TYPES = [
     {
         id: "amarillo",
         name: "Plátano amarillo",
-        background: "#F1E72C",
+        background: "#E8E83F",
         accent: "#6B5B00",
         ink: "#1C1B12",
         center: [14, 4],
@@ -68,9 +69,9 @@ const MAX_ZOOM = 4;
 function BananaTypes() {
     const [activeId, setActiveId] = useState(BANANA_TYPES[0].id);
     const activeType = BANANA_TYPES.find((type) => type.id === activeId) ?? BANANA_TYPES[0];
-    const [mapPosition, setMapPosition] = useState({
-        coordinates: activeType.center,
-        zoom: activeType.zoom,
+    const { position: mapPosition, moveTo, settle, cancel } = useMapMotion({
+        coordinates: BANANA_TYPES[0].center,
+        zoom: BANANA_TYPES[0].zoom,
     });
 
     const highlightedCountries = useMemo(
@@ -78,23 +79,53 @@ function BananaTypes() {
         [activeType]
     );
 
+    // Reuse the country paths while only the camera changes each frame.
+    const mapGeographies = useMemo(() => (
+    <Geographies geography={worldMap}>
+        {({ geographies }) =>
+            geographies.map((geography) => {
+                const countryId = String(geography.id).padStart(3, "0");
+                const isHighlighted = highlightedCountries.has(countryId);
+
+                return (
+                    <Geography
+                        key={geography.rsmKey}
+                        geography={geography}
+                        tabIndex={-1}
+                        aria-hidden="true"
+                        className="banana-map__geography"
+                        fill={isHighlighted ? activeType.accent : "#DEDED4"}
+                        stroke="#F8F7EF"
+                        strokeWidth={0.5}
+                        style={{
+                            default: { outline: "none" },
+                            hover: { outline: "none" },
+                            pressed: { outline: "none" },
+                        }}
+                    />
+                );
+            })
+        }
+    </Geographies>
+    ), [highlightedCountries, activeType.accent]);
+
     const selectType = (type) => {
         setActiveId(type.id);
-        setMapPosition({
+        moveTo({
             coordinates: type.center,
             zoom: type.zoom,
         });
     };
 
     const setZoom = (nextZoom) => {
-        setMapPosition((currentPosition) => ({
-            ...currentPosition,
+        moveTo({
+            ...mapPosition,
             zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, nextZoom)),
-        }));
+        });
     };
 
     const resetMap = () => {
-        setMapPosition({
+        moveTo({
             coordinates: activeType.center,
             zoom: activeType.zoom,
         });
@@ -103,6 +134,7 @@ function BananaTypes() {
     return (
         <section
             id="tipos"
+            aria-labelledby="growing-regions-title"
             className="banana-types"
             style={{
                 "--banana-theme": activeType.background,
@@ -112,17 +144,19 @@ function BananaTypes() {
         >
             <div className="banana-types__selector">
                 <div className="banana-types__selector-inner">
-                    <header className="banana-types__heading">
-                        <h2>Tipos de plátanos</h2>
+                    <header className="banana-types__heading" data-reveal="line">
+                        <h2 id="growing-regions-title">¿Y dónde crecen?</h2>
                     </header>
 
                     <div className="banana-types__list" aria-label="Tipos de plátano">
-                        {BANANA_TYPES.map((type) => {
+                        {BANANA_TYPES.map((type, index) => {
                             const isActive = type.id === activeType.id;
 
                             return (
                                 <button
                                     key={type.id}
+                                    data-reveal="card"
+                                    data-reveal-delay={120 + index * 90}
                                     type="button"
                                     className={`banana-type-card${isActive ? " is-active" : ""}`}
                                     aria-pressed={isActive}
@@ -136,13 +170,13 @@ function BananaTypes() {
                 </div>
             </div>
 
-            <div className="banana-types__map-panel">
+            <div id="donde-crecen" className="banana-types__map-panel">
                 <div className="banana-types__map-wrap">
-                    <div className="banana-map__intro" key={activeType.id} aria-live="polite">
-                        <h3>{activeType.name}</h3>
+                    <div className="banana-map__intro" aria-live="polite" aria-atomic="true">
+                        <h3 key={activeType.id} data-reveal="rise" data-reveal-delay="100">{activeType.name}</h3>
                     </div>
 
-                    <div className="banana-map__canvas">
+                    <div className="banana-map__canvas" data-reveal="map" data-reveal-delay="260">
                         <ComposableMap
                             projection="geoEqualEarth"
                             projectionConfig={{ scale: 148 }}
@@ -156,7 +190,8 @@ function BananaTypes() {
                                 zoom={mapPosition.zoom}
                                 minZoom={MIN_ZOOM}
                                 maxZoom={MAX_ZOOM}
-                                onMoveEnd={setMapPosition}
+                                onMoveStart={cancel}
+                                onMoveEnd={settle}
                             >
                                 <Sphere
                                     id="banana-map-sphere"
@@ -169,32 +204,7 @@ function BananaTypes() {
                                     stroke="rgba(31, 31, 24, 0.075)"
                                     strokeWidth={0.45}
                                 />
-                                <Geographies geography={worldMap}>
-                                    {({ geographies }) =>
-                                        geographies.map((geography) => {
-                                            const countryId = String(geography.id).padStart(3, "0");
-                                            const isHighlighted = highlightedCountries.has(countryId);
-
-                                            return (
-                                                <Geography
-                                                    key={geography.rsmKey}
-                                                    geography={geography}
-                                                    tabIndex={-1}
-                                                    aria-hidden="true"
-                                                    className="banana-map__geography"
-                                                    fill={isHighlighted ? activeType.accent : "#DEDED4"}
-                                                    stroke="#F8F7EF"
-                                                    strokeWidth={0.5}
-                                                    style={{
-                                                        default: { outline: "none" },
-                                                        hover: { outline: "none" },
-                                                        pressed: { outline: "none" },
-                                                    }}
-                                                />
-                                            );
-                                        })
-                                    }
-                                </Geographies>
+                                {mapGeographies}
                             </ZoomableGroup>
                         </ComposableMap>
 

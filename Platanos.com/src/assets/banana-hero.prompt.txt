@@ -1,0 +1,10 @@
+Asset: public/img/banana-hero.png
+Generated with the built-in ImageGen tool.
+
+Use case: product-mockup.
+Asset type: landing page hero.
+Primary request: A single beautiful ripe yellow banana, unpeeled, photorealistic premium studio food photography, isolated on a genuinely transparent alpha background.
+Subject: Entire banana visible, clean cutout with small natural brown freckles and a short slightly green stem.
+Composition/framing: An elegant broad upward smile curve: dark tip lower left, stem upper right, oriented about 20 degrees from horizontal. Wide landscape canvas 1536x1024, banana occupies 85 percent of width and 75 percent height.
+Lighting and materials: Rich warm saturated yellow, soft highlights, realistic tactile skin.
+Constraints: No floor or backdrop, no cast shadow outside object, no other objects, no labels, no text, no logos, no watermarks. Intended to float over huge typography on a white minimalist vibrant landing page.
