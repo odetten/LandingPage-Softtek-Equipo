@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import BananaTypes from "./components/BananaTypes";
+import BananasCarousel from "./components/BananasCarousel";
+import Footer from "./components/Footer";
 import ComedianSection from "./components/ComedianSection";
 import useScrollReveal from "./hooks/useScrollReveal";
 import Beneficios from './components/Beneficios';
@@ -18,6 +20,7 @@ function App() {
       <main>
         <Hero />
         <Beneficios />
+        <BananasCarousel />
         <BananaTypes />
         <ComedianSection />
         <section id="interactivo" aria-label="Comparador de alturas en plátanos">
@@ -27,6 +30,7 @@ function App() {
         </section>
         <ContactSection />
       </main>
+      <Footer />
     </div>
   );
 }

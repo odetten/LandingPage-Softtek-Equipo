@@ -9,59 +9,45 @@ import {
 } from "react-simple-maps";
 import worldMap from "world-atlas/countries-110m.json";
 import useMapMotion from "../hooks/useMapMotion";
+import { bananaThemes } from "../data/bananaThemes";
 
 const BANANA_TYPES = [
     {
         id: "amarillo",
-        name: "Plátano amarillo",
-        background: "#E8E83F",
-        cursorFilter: "hue-rotate(0deg) saturate(1)",
-        accent: "#6B5B00",
-        ink: "#1C1B12",
+        name: "Cavendish / Tabasco",
+        ...bananaThemes.amarillo,
         center: [14, 4],
         zoom: 1.08,
         countries: ["356", "218", "156", "170", "188", "608", "360", "076", "320", "484"],
     },
     {
         id: "plantain",
-        name: "Plantain",
-        background: "#A8C96F",
-        cursorFilter: "hue-rotate(38deg) saturate(1.1)",
-        accent: "#315A28",
-        ink: "#142313",
+        name: "Plátano Macho",
+        ...bananaThemes.plantain,
         center: [-8, 3],
         zoom: 1.24,
         countries: ["120", "566", "288", "384", "180", "800", "646", "834", "170", "218", "862", "214", "332", "192"],
     },
     {
         id: "dominicano",
-        name: "Dominicano",
-        background: "#F0AE54",
-        cursorFilter: "hue-rotate(-25deg) saturate(1.25)",
-        accent: "#8B4518",
-        ink: "#271409",
+        name: "Dominico",
+        ...bananaThemes.dominicano,
         center: [-82, 15],
         zoom: 1.85,
         countries: ["484", "320", "340", "222", "558", "188", "591", "192", "332", "214", "388", "170", "218"],
     },
     {
         id: "morado-rojo",
-        name: "Morado / Rojo",
-        background: "#A94F63",
-        cursorFilter: "hue-rotate(-75deg) saturate(0.95)",
-        accent: "#5F2034",
-        ink: "#FFF8F5",
+        name: "Plátano Morado",
+        ...bananaThemes["morado-rojo"],
         center: [86, 7],
         zoom: 1.42,
         countries: ["356", "144", "050", "104", "764", "116", "704", "458", "360", "608", "598", "484"],
     },
     {
         id: "azul",
-        name: "Azul",
-        background: "#7FA8D0",
-        cursorFilter: "hue-rotate(155deg) saturate(0.85)",
-        accent: "#294D70",
-        ink: "#102135",
+        name: "Blue Java",
+        ...bananaThemes.azul,
         center: [142, -5],
         zoom: 1.48,
         countries: ["360", "608", "458", "764", "704", "598", "036", "242"],
@@ -138,7 +124,7 @@ function BananaTypes() {
 
     return (
         <section
-            id="tipos"
+            id="donde-crecen"
             data-banana-cursor-filter={activeType.cursorFilter}
             aria-labelledby="growing-regions-title"
             className="banana-types"
@@ -176,7 +162,7 @@ function BananaTypes() {
                 </div>
             </div>
 
-            <div id="donde-crecen" className="banana-types__map-panel">
+            <div className="banana-types__map-panel">
                 <div className="banana-types__map-wrap">
                     <div className="banana-map__intro" aria-live="polite" aria-atomic="true">
                         <h3 key={activeType.id} data-reveal="rise" data-reveal-delay="100">{activeType.name}</h3>
