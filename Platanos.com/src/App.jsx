@@ -1,44 +1,40 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
+import BananaCursor from "./components/BananaCursor";
+import BananaTypes from "./components/BananaTypes";
 import BananasCarousel from "./components/BananasCarousel";
+import Beneficios from "./components/Beneficios";
+import ComedianSection from "./components/ComedianSection";
+import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import useScrollReveal from "./hooks/useScrollReveal";
 
-const BananaOverlay = lazy(() => import("./components/BananaOverlay"));
+const BananaComparisons = lazy(() => import("./components/BananaComparisons"));
 
 function App() {
-  const [isBananaModelOpen, setIsBananaModelOpen] = useState(false);
-
-  useEffect(() => {
-    if (!isBananaModelOpen) return undefined;
-
-    const closeWithEscape = (event) => {
-      if (event.key === "Escape") setIsBananaModelOpen(false);
-    };
-
-    window.addEventListener("keydown", closeWithEscape);
-    return () => window.removeEventListener("keydown", closeWithEscape);
-  }, [isBananaModelOpen]);
+  const revealRef = useScrollReveal();
 
   return (
-    <div>
-      <Header
-        isModelOpen={isBananaModelOpen}
-        onToggleModel={() => setIsBananaModelOpen((isOpen) => !isOpen)}
-      />
-
-      <Hero />
-      <BananasCarousel />
+    <div ref={revealRef}>
+      <BananaCursor />
+      <Header />
+      <main>
+        <Hero />
+        <Beneficios />
+        <BananasCarousel />
+        <BananaTypes />
+        <ComedianSection />
+        <section id="interactivo" aria-label="Comparador de alturas en plátanos">
+          <Suspense fallback={<p className="p-8 text-center" role="status">Cargando comparador…</p>}>
+            <BananaComparisons />
+          </Suspense>
+        </section>
+        <ContactSection />
+      </main>
       <Footer />
-
-      {isBananaModelOpen && (
-        <Suspense fallback={null}>
-          <BananaOverlay />
-        </Suspense>
-      )}
-
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

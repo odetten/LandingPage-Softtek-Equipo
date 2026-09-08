@@ -1,0 +1,75 @@
+import burjImage from "../assets/burj.jpg";
+import merdekaImage from "../assets/merdeka.jpg";
+import tokyoImage from "../assets/tokyo.jpg";
+import shanghaiImage from "../assets/shanghai.jpg";
+import riseImage from "../assets/rise.jpg";
+import obispadoImage from "../assets/obispado.jpg";
+import mitikahImage from "../assets/mitikah.jpg";
+
+export const comparisons = [
+  // ---- MUNDO: rascacielos y torres ----
+  { name: "Burj Khalifa (Dubái)", heightM: 828, category: "mundo", image: burjImage },
+  { name: "Merdeka 118 (Kuala Lumpur)", heightM: 679, category: "mundo", image: merdekaImage },
+  { name: "Tokyo Skytree (Tokio)", heightM: 634, category: "mundo", image: tokyoImage },
+  { name: "Shanghai Tower (Shanghái)", heightM: 632, category: "mundo", image: shanghaiImage },
+  { name: "Canton Tower (Guangzhou)", heightM: 604, category: "mundo" },
+  { name: "Torre del Reloj Abraj Al-Bait (La Meca)", heightM: 601, category: "mundo" },
+  { name: "Ping An Finance Centre (Shenzhen)", heightM: 599, category: "mundo" },
+  { name: "Lotte World Tower (Seúl)", heightM: 555, category: "mundo" },
+  { name: "Torre CN (Toronto)", heightM: 553, category: "mundo" },
+  { name: "One World Trade Center (Nueva York)", heightM: 541, category: "mundo" },
+  { name: "Torre Ostankino (Moscú)", heightM: 540, category: "mundo" },
+  { name: "Guangzhou CTF Finance Centre (Guangzhou)", heightM: 530, category: "mundo" },
+  { name: "CITIC Tower / China Zun (Pekín)", heightM: 528, category: "mundo" },
+  { name: "Taipei 101 (Taipéi)", heightM: 508, category: "mundo" },
+  { name: "Shanghai World Financial Center (Shanghái)", heightM: 492, category: "mundo" },
+  { name: "International Commerce Centre (Hong Kong)", heightM: 484, category: "mundo" },
+  { name: "Torre Oriental Pearl (Shanghái)", heightM: 468, category: "mundo" },
+  { name: "Torre Milad (Teherán)", heightM: 435, category: "mundo" },
+  { name: "Torres Petronas (Kuala Lumpur)", heightM: 452, category: "mundo" },
+  { name: "Willis Tower (Chicago)", heightM: 442, category: "mundo" },
+  { name: "Empire State Building (Nueva York)", heightM: 443, category: "mundo" },
+  { name: "Jin Mao Tower (Shanghái)", heightM: 421, category: "mundo" },
+  { name: "Torre KL (Kuala Lumpur)", heightM: 421, category: "mundo" },
+  { name: "Burj Al Arab (Dubái)", heightM: 321, category: "mundo" },
+  { name: "The Shard (Londres)", heightM: 310, category: "mundo" },
+  { name: "Chrysler Building (Nueva York)", heightM: 319, category: "mundo" },
+  { name: "Fernsehturm (Berlín)", heightM: 368, category: "mundo" },
+  { name: "Torre Eiffel (París)", heightM: 330, category: "mundo" },
+
+  // ---- MUNDO: monumentos e íconos ----
+  { name: "Gran Pirámide de Guiza (Egipto)", heightM: 139, category: "mundo" },
+  { name: "Sagrada Familia (Barcelona)", heightM: 172, category: "mundo" },
+  { name: "Catedral de Colonia (Alemania)", heightM: 157, category: "mundo" },
+  { name: "Basílica de San Pedro (Vaticano)", heightM: 136, category: "mundo" },
+  { name: "Monumento a Washington (EE.UU.)", heightM: 169, category: "mundo" },
+  { name: "Big Ben / Elizabeth Tower (Londres)", heightM: 96, category: "mundo" },
+  { name: "Torre Inclinada de Pisa (Italia)", heightM: 56, category: "mundo" },
+  { name: "Estatua de la Libertad (Nueva York)", heightM: 93, category: "mundo" },
+  { name: "Cristo Redentor (Río de Janeiro)", heightM: 38, category: "mundo" },
+  { name: "Taj Mahal (Agra, India)", heightM: 73, category: "mundo" },
+  { name: "Ópera de Sídney (Australia)", heightM: 65, category: "mundo" },
+  { name: "Coliseo Romano (Roma)", heightM: 48, category: "mundo" },
+  { name: "Notre-Dame (París)", heightM: 96, category: "mundo" },
+  { name: "Duomo di Milano (Milán)", heightM: 108, category: "mundo" },
+  { name: "Buda Gigante de Leshan (China)", heightM: 71, category: "mundo" },
+  { name: "Angkor Wat (Camboya)", heightM: 65, category: "mundo" },
+  { name: "Torres del Golden Gate (San Francisco)", heightM: 227, category: "mundo" },
+  { name: "Space Needle (Seattle)", heightM: 184, category: "mundo" },
+  { name: "The Gherkin (Londres)", heightM: 180, category: "mundo" },
+  { name: "Marina Bay Sands (Singapur)", heightM: 200, category: "mundo" },
+  { name: "Gateway Arch (St. Louis)", heightM: 192, category: "mundo" },
+  { name: "Burj Khalifa (Dubái) 2", heightM: 828, category: "mundo" }, // duplicado, ver nota abajo
+
+  // ---- MÉXICO: los más altos ----
+  { name: "Torre Rise (Monterrey) — en construcción", heightM: 475, category: "mexico", image: riseImage },
+  { name: "Torre Obispado (Monterrey)", heightM: 305, category: "mexico", image: obispadoImage },
+  { name: "Mítikah (Ciudad de México)", heightM: 267, category: "mexico", image: mitikahImage },
+  { name: "Torre KOI (Monterrey)", heightM: 262, category: "mexico" },
+  { name: "Chapultepec Uno (Ciudad de México)", heightM: 260, category: "mexico" },
+  { name: "Torre Reforma (Ciudad de México)", heightM: 244, category: "mexico" },
+  { name: "Torre BBVA México (Ciudad de México)", heightM: 235, category: "mexico" },
+  { name: "Torre Mayor (Ciudad de México)", heightM: 225, category: "mexico" },
+  { name: "Torre Latinoamericana (Ciudad de México)", heightM: 182, category: "mexico" },
+  { name: "World Trade Center México (Ciudad de México)", heightM: 148, category: "mexico" },
+];
