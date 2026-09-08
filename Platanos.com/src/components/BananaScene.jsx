@@ -9,7 +9,7 @@ import * as THREE from "three";
 // Los dos extremos del recorrido de cámara
 const TOP_DOWN = new THREE.Vector3(0, 10, 1.5);
 // This asset lies in the XZ plane, so the close-up must keep looking from above.
-const CLOSE_UP = new THREE.Vector3(0, 5, 0.8);
+const CLOSE_UP = new THREE.Vector3(10, 5, 0.8);
 
 function CameraRig({ progressRef, reducedMotion }) {
   const tempTarget = useRef(new THREE.Vector3());
@@ -28,7 +28,7 @@ function CameraRig({ progressRef, reducedMotion }) {
       camera.position.copy(tempTarget.current);
       initialized.current = true;
     } else {
-      camera.position.lerp(tempTarget.current, 0.06); // suaviza el movimiento
+      camera.position.lerp(tempTarget.current, 0.04); // suaviza el movimiento
     }
     camera.lookAt(0, 0, 0);
   });
@@ -40,7 +40,7 @@ function BananaModel() {
   const { scene } = useGLTF(`${import.meta.env.BASE_URL}models/banana.glb`, false, false);
   return (
     <Center>
-      <primitive object={scene} scale={2.2} />
+      <primitive object={scene} scale={4.2} />
     </Center>
   );
 }
