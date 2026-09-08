@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useReducedMotion } from "framer-motion";
 import { benefits } from "../data/benefits";
-import { getCardOffset, wrapIndex } from "../utils/carousel";
+import { wrapIndex } from "../utils/carousel";
 import "../styles/benefits.css";
 
 function BenefitSymbol({ type }) {
   if (type === "potassium" || type === "vitamin") {
     return <span className="benefit-symbol__letter">{type === "potassium" ? <>K<sup>+</sup></> : <>B<sub>6</sub></>}</span>;
   }
+
   return (
     <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
       {type === "energy" && <path d="M66 12 28 68h30l-5 40 39-61H62l4-35Z" />}
@@ -22,130 +24,198 @@ function BenefitSymbol({ type }) {
   );
 }
 
+function BenefitModal({ benefit, onClose }) {
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const appRoot = document.getElementById("root");
+    const previousInert = appRoot?.inert ?? false;
+    const previousAriaHidden = appRoot?.getAttribute("aria-hidden") ?? null;
+    document.body.style.overflow = "hidden";
+    if (appRoot) {
+      appRoot.inert = true;
+      appRoot.setAttribute("aria-hidden", "true");
+    }
+    closeRef.current?.focus();
+
+    const closeWithEscape = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.addEventListener("keydown", closeWithEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      if (appRoot) {
+        appRoot.inert = previousInert;
+        if (previousAriaHidden === null) appRoot.removeAttribute("aria-hidden");
+        else appRoot.setAttribute("aria-hidden", previousAriaHidden);
+      }
+      document.removeEventListener("keydown", closeWithEscape);
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div className="benefit-modal" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <div
+        id={`benefit-dialog-${benefit.id}`}
+        className="benefit-modal__dialog"
+        style={{ "--card-accent": benefit.color }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="benefit-modal-title"
+        aria-describedby="benefit-modal-description"
+        onKeyDown={(event) => {
+          if (event.key === "Tab") {
+            event.preventDefault();
+            closeRef.current?.focus();
+          }
+        }}
+      >
+        <div className="benefit-modal__top">
+          <span>{benefit.label}</span>
+          <button ref={closeRef} type="button" aria-label="Cerrar detalle" onClick={onClose}>×</button>
+        </div>
+        <div className="benefit-modal__symbol" aria-hidden="true"><BenefitSymbol type={benefit.id} /></div>
+        <h3 id="benefit-modal-title">{benefit.title}</h3>
+        <p id="benefit-modal-description">{benefit.description}</p>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
 export default function Beneficios() {
   const [active, setActive] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [visible, setVisible] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const [pageVisible, setPageVisible] = useState(() => typeof document === "undefined" || !document.hidden);
+  const [modalBenefit, setModalBenefit] = useState(null);
   const reducedMotion = useReducedMotion();
   const stageRef = useRef(null);
-  const gesture = useRef(null);
-  const swiped = useRef(false);
+  const cardRefs = useRef([]);
+  const modalTriggerRef = useRef(null);
+  const scrollTimer = useRef(null);
+  const scrollUnlockTimer = useRef(null);
+  const programmaticScroll = useRef(false);
   const count = benefits.length;
   const move = (step) => setActive((index) => wrapIndex(index + step, count));
-  const autoAdvancing = playing && visible && pageVisible && !hovered && !focused && !dragging && !reducedMotion;
+
+  const closeModal = () => {
+    setModalBenefit(null);
+    window.requestAnimationFrame(() => modalTriggerRef.current?.focus());
+  };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting && entry.intersectionRatio >= 0.25), { threshold: 0.25 });
-    observer.observe(stageRef.current);
-    const onVisibility = () => setPageVisible(!document.hidden);
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", onVisibility);
-    };
+    const stage = stageRef.current;
+    const card = cardRefs.current[active];
+    if (!stage || !card) return;
+    const inset = Number.parseFloat(window.getComputedStyle(stage).paddingLeft) || 0;
+    window.clearTimeout(scrollUnlockTimer.current);
+    programmaticScroll.current = true;
+    stage.scrollTo({ left: Math.max(0, card.offsetLeft - inset), behavior: reducedMotion ? "auto" : "smooth" });
+    scrollUnlockTimer.current = window.setTimeout(() => {
+      programmaticScroll.current = false;
+    }, reducedMotion ? 0 : 650);
+  }, [active, reducedMotion]);
+
+  useEffect(() => () => {
+    window.clearTimeout(scrollTimer.current);
+    window.clearTimeout(scrollUnlockTimer.current);
   }, []);
 
-  useEffect(() => {
-    if (!autoAdvancing) return;
-    const timer = window.setTimeout(() => setActive((index) => wrapIndex(index + 1, count)), 5000);
-    return () => window.clearTimeout(timer);
-  }, [active, autoAdvancing, count]);
-
   const handleKeyDown = (event) => {
-    if (event.key === " " && event.target === stageRef.current) {
-      event.preventDefault();
-      setPlaying((value) => !value);
-      return;
-    }
     const actions = { ArrowLeft: () => move(-1), ArrowRight: () => move(1), Home: () => setActive(0), End: () => setActive(count - 1) };
     if (!actions[event.key]) return;
     event.preventDefault();
     actions[event.key]();
   };
 
-  const finishGesture = (event) => {
-    setDragging(false);
-    const start = gesture.current;
-    gesture.current = null;
-    if (!start || start.id !== event.pointerId) return;
-    const dx = event.clientX - start.x;
-    const dy = event.clientY - start.y;
-    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) {
-      swiped.current = true;
-      move(dx < 0 ? 1 : -1);
-    }
+  const handleScroll = () => {
+    const stage = stageRef.current;
+    if (!stage || programmaticScroll.current) return;
+    window.clearTimeout(scrollTimer.current);
+    scrollTimer.current = window.setTimeout(() => {
+      const inset = Number.parseFloat(window.getComputedStyle(stage).paddingLeft) || 0;
+      const alignedEdge = stage.scrollLeft + inset;
+      const nearest = cardRefs.current.reduce((result, card, index) => {
+        if (!card) return result;
+        const distance = Math.abs(card.offsetLeft - alignedEdge);
+        return distance < result.distance ? { index, distance } : result;
+      }, { index: 0, distance: Number.POSITIVE_INFINITY });
+      setActive(nearest.index);
+    }, 140);
   };
 
   return (
     <section id="beneficios" className="benefits-section" aria-labelledby="benefits-title">
       <div className="benefits-heading" data-reveal="rise">
-        <h2 id="benefits-title">Lo bueno viene<br /><span>por dentro.</span></h2>
-        <p>Mucho más que una cara bonita con cáscara.</p>
+        <h2 id="benefits-title">Lo bueno viene por dentro.</h2>
       </div>
 
-      <div className="benefits-carousel" role="region" aria-roledescription="carrusel" aria-label="Beneficios del plátano" onKeyDown={handleKeyDown}
-        onPointerEnter={(event) => { if (event.pointerType === "mouse") setHovered(true); }}
-        onPointerLeave={() => setHovered(false)}
-        onFocusCapture={() => setFocused(true)}
-        onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
-      >
+      <div className="benefits-carousel" role="region" aria-roledescription="carrusel" aria-label="Beneficios del plátano" onKeyDown={handleKeyDown}>
         <div
           ref={stageRef}
           className="benefits-stage"
           tabIndex={0}
-          aria-label="Tarjetas de beneficios. Usa las flechas izquierda y derecha para cambiar; espacio para pausar o reanudar el avance automático."
-          aria-keyshortcuts="ArrowLeft ArrowRight Home End Space"
-          onPointerDown={(event) => {
-            if (!event.isPrimary || event.button !== 0) return;
-            setDragging(true);
-            swiped.current = false;
-            gesture.current = { x: event.clientX, y: event.clientY, id: event.pointerId };
-            event.currentTarget.setPointerCapture(event.pointerId);
-          }}
-          onPointerUp={finishGesture}
-          onPointerCancel={() => { gesture.current = null; setDragging(false); }}
-          onLostPointerCapture={() => { gesture.current = null; setDragging(false); }}
-          onClick={(event) => {
-            if (swiped.current) return;
-            // Hit testing also works after pointer capture retargets a click to the stage.
-            const card = document.elementFromPoint(event.clientX, event.clientY)?.closest("[data-card-index]");
-            if (card && event.currentTarget.contains(card)) setActive(Number(card.dataset.cardIndex));
+          aria-label="Tarjetas de beneficios. Usa las flechas izquierda y derecha para cambiar."
+          aria-keyshortcuts="ArrowLeft ArrowRight Home End"
+          onScroll={handleScroll}
+          onPointerDown={() => {
+            window.clearTimeout(scrollUnlockTimer.current);
+            programmaticScroll.current = false;
           }}
           data-reveal="rise"
-          data-reveal-delay="120"
+          data-reveal-delay="100"
         >
-          {benefits.map((item, index) => {
-            const offset = getCardOffset(index, active, count);
-            const depth = Math.abs(offset);
-            return (
-              <article
-                key={item.id}
-                className={`benefit-card${offset === 0 ? " is-active" : ""}`}
-                data-card-index={index}
-                data-depth={depth}
-                style={{ "--offset": offset, "--card-scale": 1 - depth * 0.13, "--card-color": item.color, "--card-ink": item.ink, zIndex: count - depth }}
-                role="group"
-                aria-roledescription="diapositiva"
-                aria-label={`${index + 1} de ${count}`}
-                aria-hidden={offset !== 0}
+          {benefits.map((item, index) => (
+            <article
+              ref={(node) => { cardRefs.current[index] = node; }}
+              key={item.id}
+              className={`benefit-card${active === index ? " is-active" : ""}`}
+              style={{ "--card-accent": item.color }}
+              role="group"
+              aria-roledescription="diapositiva"
+              aria-label={`${index + 1} de ${count}: ${item.label}`}
+              onClick={() => setActive(index)}
+            >
+              <div className="benefit-card__top">
+                <span>{item.label}</span>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.note}</p>
+              <div className="benefit-card__media" aria-hidden="true">
+                {item.image
+                  ? <img src={item.image} alt="" />
+                  : <div className="benefit-symbol"><BenefitSymbol type={item.id} /></div>}
+              </div>
+              <button
+                className="benefit-card__detail"
+                type="button"
+                aria-label={`Ver detalle de ${item.label}`}
+                aria-haspopup="dialog"
+                aria-controls={`benefit-dialog-${item.id}`}
+                onClick={(event) => {
+                  modalTriggerRef.current = event.currentTarget;
+                  setActive(index);
+                  setModalBenefit(item);
+                }}
               >
-                <div className="benefit-card__top"><span>{item.label}</span><span>{String(index + 1).padStart(2, "0")}</span></div>
-                <div className="benefit-symbol" aria-hidden="true"><BenefitSymbol type={item.id} /></div>
-                <div className="benefit-card__copy"><h3>{item.title}</h3><p>{item.description}</p></div>
-                <span className="benefit-card__footer">{item.note}</span>
-              </article>
-            );
-          })}
+                <span aria-hidden="true">+</span>
+              </button>
+            </article>
+          ))}
         </div>
-        <div className="benefits-dots" role="group" aria-label="Elegir beneficio" data-reveal="rise" data-reveal-delay="240">
-          {benefits.map((item, index) => <button key={item.id} type="button" aria-label={`Ver ${item.label}`} aria-current={active === index ? "true" : undefined} onClick={() => setActive(index)}><span /></button>)}
+
+        <div className="benefits-toolbar" data-reveal="rise" data-reveal-delay="180">
+          <span className="benefits-progress" aria-hidden="true">{String(active + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}</span>
+          <div className="benefits-controls" aria-label="Controles del carrusel">
+            <button type="button" aria-label="Beneficio anterior" onClick={() => move(-1)}><span aria-hidden="true">←</span></button>
+            <button type="button" aria-label="Siguiente beneficio" onClick={() => move(1)}><span aria-hidden="true">→</span></button>
+          </div>
         </div>
-        <p className="sr-only" aria-live={autoAdvancing ? "off" : "polite"} aria-atomic="true">{active + 1} de {count} · {benefits[active].title}</p>
+        <p className="sr-only" aria-live="polite" aria-atomic="true">{active + 1} de {count} · {benefits[active].title}</p>
       </div>
+
+      {modalBenefit && <BenefitModal benefit={modalBenefit} onClose={closeModal} />}
     </section>
   );
 }
