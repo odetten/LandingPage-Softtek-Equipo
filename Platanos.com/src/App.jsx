@@ -8,6 +8,7 @@ import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
+import Recetas from "./components/Recetas";
 import useScrollReveal from "./hooks/useScrollReveal";
 
 const BananaComparisons = lazy(() => import("./components/BananaComparisons"));
@@ -24,6 +25,7 @@ function App() {
         <Beneficios />
         <BananasCarousel />
         <BananaTypes />
+        <Recetas />
         <ComedianSection />
         <section id="interactivo" aria-label="Comparador de alturas en plátanos">
           <Suspense fallback={<p className="p-8 text-center" role="status">Cargando comparador…</p>}>
