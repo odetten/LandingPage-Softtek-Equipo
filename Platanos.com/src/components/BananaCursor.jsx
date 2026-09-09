@@ -83,7 +83,7 @@ export default function BananaCursor() {
       `}</style>
       <img
         ref={cursorRef}
-        className="fixed left-0 top-0 z-[9999] w-24 opacity-0 pointer-events-none transition-opacity duration-150 ease-in-out will-change-transform"
+        className="fixed left-0 top-0 z-[9999] w-14 opacity-0 pointer-events-none transition-opacity duration-150 ease-in-out will-change-transform"
         src={bananaImg}
         alt=""
         aria-hidden="true"
