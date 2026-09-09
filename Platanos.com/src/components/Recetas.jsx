@@ -85,7 +85,8 @@ const recipes = [
       "Hornea por 50-60 minutos hasta que esté dorado.",
     ],
     image: "https://image.qwenlm.ai/public_source/012e7bc3-28e0-4770-9a09-c63abdf22382/1361a87a5-8edc-471c-acdf-65996ea58988.png",
-    gridClass: "md:col-span-1 md:row-span-2",
+    // 🔹 Pequeña, arriba-izquierda (1×1)
+    gridClass: "col-span-1 row-span-1",
   },
   {
     id: 2,
@@ -106,7 +107,8 @@ const recipes = [
       "Sirve y disfruta con sabor intenso.",
     ],
     image: "https://image.qwenlm.ai/public_source/012e7bc3-28e0-4770-9a09-c63abdf22382/135e84d06-188c-495b-bcf5-508567e63d79.png",
-    gridClass: "md:col-span-1 md:row-span-1",
+    // 🔹 Mediana horizontal, arriba-centro (2×1)
+    gridClass: "col-span-2 row-span-1",
   },
   {
     id: 3,
@@ -127,7 +129,8 @@ const recipes = [
       "Cocina en sartén a fuego medio hasta dorar.",
     ],
     image: "https://image.qwenlm.ai/public_source/012e7bc3-28e0-4770-9a09-c63abdf22382/1deaeda1d-95fa-45c2-92a4-d2cd4739db6c.png",
-    gridClass: "md:col-span-1 md:row-span-1",
+    // 🔹 Mediana horizontal, abajo-izquierda (2×1)
+    gridClass: "col-span-2 row-span-1",
   },
   {
     id: 4,
@@ -143,7 +146,8 @@ const recipes = [
       "Sirve inmediatamente o congela para después.",
     ],
     image: "https://image.qwenlm.ai/public_source/012e7bc3-28e0-4770-9a09-c63abdf22382/1d7c065c1-d5ae-414b-8dae-298f6ddb6862.png",
-    gridClass: "md:col-span-1 md:row-span-2",
+    // 🔹 Pequeña, abajo-centro (1×1)
+    gridClass: "col-span-1 row-span-1",
   },
   {
     id: 5,
@@ -163,7 +167,8 @@ const recipes = [
       "Coloca rodajas de plátano encima y disfruta.",
     ],
     image: "https://image.qwenlm.ai/public_source/012e7bc3-28e0-4770-9a09-c63abdf22382/108bfb3ce-a276-4169-9b7d-2c67e245c8a6.png",
-    gridClass: "md:col-span-1 md:row-span-2",
+    //  Grande vertical, derecha (1×2)
+    gridClass: "col-span-1 row-span-2",
   },
 ];
 
@@ -189,7 +194,7 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip }) {
           }
         }}
         style={{ perspective: "1000px" }}
-        className="h-full min-h-[320px] w-full cursor-pointer"
+        className="h-full min-h-[280px] w-full cursor-pointer"
       >
         <div
           style={{
@@ -199,9 +204,10 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip }) {
             position: "relative",
             width: "100%",
             height: "100%",
-            minHeight: "320px",
+            minHeight: "280px",
           }}
         >
+          {/* FRONT: imagen + nombre */}
           <div
             style={{
               position: "absolute",
@@ -217,11 +223,12 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip }) {
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.15) 70%, transparent 100%)",
+                background:
+                  "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.15) 70%, transparent 100%)",
               }}
             />
 
-            <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
+            <div className="absolute inset-0 flex flex-col justify-between p-5 text-white md:p-6">
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
                   <ClockIcon /> {recipe.time}
@@ -235,7 +242,9 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip }) {
                 <p className="mb-1 text-xs font-medium uppercase tracking-wider text-white/70">
                   {recipe.subtitle}
                 </p>
-                <h3 className="mb-4 text-xl font-bold leading-tight md:text-2xl">{recipe.title}</h3>
+                <h3 className="mb-4 text-lg font-bold leading-tight md:text-xl lg:text-2xl">
+                  {recipe.title}
+                </h3>
 
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-white/90">Ver receta</span>
@@ -255,6 +264,7 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip }) {
             </div>
           </div>
 
+          {/* BACK: ingredientes + receta */}
           <div
             style={{
               position: "absolute",
@@ -274,7 +284,9 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip }) {
             }}
           >
             <div>
-              <h3 className="mb-1 text-xl font-bold leading-tight text-gray-900 md:text-2xl">{recipe.title}</h3>
+              <h3 className="mb-1 text-xl font-bold leading-tight text-gray-900 md:text-2xl">
+                {recipe.title}
+              </h3>
               <p className="mb-4 text-sm text-gray-600">{recipe.description}</p>
 
               <div className="mb-4 flex flex-wrap gap-3">
@@ -285,7 +297,9 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip }) {
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-100 bg-gray-50">
                         <IngredientIcon />
                       </div>
-                      <span className="text-center text-[10px] font-medium leading-tight text-gray-600">{ingredient.name}</span>
+                      <span className="text-center text-[10px] font-medium leading-tight text-gray-600">
+                        {ingredient.name}
+                      </span>
                     </div>
                   );
                 })}
@@ -351,7 +365,8 @@ export default function Recetas() {
           </p>
         </div>
 
-        <div className="grid auto-rows-[minmax(320px,auto)] grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+        {/* 🔹 Grid de 4 columnas con auto-rows para el bento layout */}
+        <div className="grid auto-rows-[minmax(280px,auto)] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           {recipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}
