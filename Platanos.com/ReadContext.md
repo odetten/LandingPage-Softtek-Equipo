@@ -66,6 +66,13 @@ No todas las secciones tienen que ser tarjetas. Las secciones principales deben 
 ### Inspiración
 Nos inspiramos del tipo de pagina que es Apple, sus carruceles y animaciones
 Revistas de Moda
+Galeria de Arte
+Arquitectura, pintura, New York
+
+### Tipos de estilos identificados
+Brutalismo
+Minimalismox
+
 
 ## 4. Estado actual
 
