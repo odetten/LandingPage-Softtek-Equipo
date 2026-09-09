@@ -10,17 +10,17 @@ function Hero() {
                 </h1>
 
                 <div className="banana-hero__fruit">
-                    <img
-                        data-reveal="fruit"
-                        data-reveal-delay="360"
-                        src={BANANA_IMAGE}
-                        alt="Plátano amarillo con cáscara"
-                        draggable="false"
-                        fetchPriority="high"
-                        decoding="async"
-                        width="1536"
-                        height="1024"
-                    />
+                    <div className="banana-hero__traveler">
+                        <img
+                            src={BANANA_IMAGE}
+                            alt="Plátano con cáscara"
+                            draggable="false"
+                            fetchPriority="high"
+                            decoding="async"
+                            width="1536"
+                            height="1024"
+                        />
+                    </div>
                 </div>
             </div>
 

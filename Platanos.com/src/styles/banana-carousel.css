@@ -59,7 +59,7 @@
 .banana-carousel__buttons button:hover { background: color-mix(in srgb, currentColor 10%, transparent); transform: translateY(-2px); }
 .banana-carousel__buttons button[aria-pressed="true"] { color: var(--variety-background); background: var(--variety-ink); }
 .banana-carousel button:focus-visible { outline: 3px solid var(--variety-ink); outline-offset: 3px; }
-.banana-carousel__buttons svg { width: 1.3rem; height: 1.3rem; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.banana-carousel__buttons svg:not(.carousel-chevron) { width: 1.3rem; height: 1.3rem; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .banana-carousel__progress { position: absolute; left: 0; bottom: 0; width: 100%; height: 3px; background: currentColor; transform-origin: left; opacity: .45; }
 
 @media (max-width: 760px) {

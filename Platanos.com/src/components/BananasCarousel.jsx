@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useInView, useMotionValue, useReducedMotion, u
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { bananaThemes } from '../data/bananaThemes';
 import { wrapIndex } from '../utils/carousel';
+import CarouselChevron from './CarouselChevron';
 import '../styles/banana-carousel.css';
 
 const bananaSlides = [
@@ -208,11 +209,11 @@ export default function BananasCarousel() {
                         ))}
                     </div>
                     <div className="banana-carousel__buttons" role="group" aria-label="Controles del carrusel">
-                        <button type="button" onClick={() => { setIsAutoPlaying(false); paginate(-1); }} aria-label="Variedad anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg></button>
+                        <button type="button" onClick={() => { setIsAutoPlaying(false); paginate(-1); }} aria-label="Variedad anterior"><CarouselChevron direction="left" /></button>
                         <button type="button" onClick={() => setIsAutoPlaying((playing) => !playing)} aria-label={isAutoPlaying ? 'Pausar carrusel' : 'Reproducir carrusel'} aria-pressed={isAutoPlaying}>
                             {isAutoPlaying ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14" /></svg> : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z" /></svg>}
                         </button>
-                        <button type="button" onClick={() => { setIsAutoPlaying(false); paginate(1); }} aria-label="Variedad siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></button>
+                        <button type="button" onClick={() => { setIsAutoPlaying(false); paginate(1); }} aria-label="Variedad siguiente"><CarouselChevron direction="right" /></button>
                     </div>
                 </div>
                 <p className="sr-only" aria-live={isPlaying ? 'off' : 'polite'} aria-atomic="true">Variedad {current + 1} de {bananaSlides.length}: {slide.subtitle}. {slide.description}</p>

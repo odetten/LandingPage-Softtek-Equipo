@@ -1,12 +1,11 @@
 import { lazy, Suspense } from "react";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
+import HeroBenefits from "./components/HeroBenefits";
 import BananaTypes from "./components/BananaTypes";
 import BananasCarousel from "./components/BananasCarousel";
 import Footer from "./components/Footer";
 import ComedianSection from "./components/ComedianSection";
 import useScrollReveal from "./hooks/useScrollReveal";
-import Beneficios from './components/Beneficios';
 import ContactSection from './components/ContactSection';
 import BananaCursor from './components/BananaCursor';
 const BananaComparisons = lazy(() => import("./components/BananaComparisons"));
@@ -18,8 +17,7 @@ function App() {
       <BananaCursor />
       <Header />
       <main>
-        <Hero />
-        <Beneficios />
+        <HeroBenefits />
         <BananasCarousel />
         <BananaTypes />
         <ComedianSection />
