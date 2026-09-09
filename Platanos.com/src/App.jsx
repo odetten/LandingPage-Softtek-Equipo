@@ -10,6 +10,9 @@ import Beneficios from './components/Beneficios';
 import ContactSection from './components/ContactSection';
 import BananaCursor from './components/BananaCursor';
 const BananaComparisons = lazy(() => import("./components/BananaComparisons"));
+import BananaPrismHero from "./components/BananaPrismHero";
+import BananaNinja from "./components/BananaNinja";
+import InteractiveBanana from "./components/InteractiveBanana";
 
 function App() {
   const revealRef = useScrollReveal();
@@ -21,6 +24,7 @@ function App() {
         <Hero />
         <Beneficios />
         <BananasCarousel />
+        <BananaPrismHero/>
         <BananaTypes />
         <ComedianSection />
         <section id="interactivo" aria-label="Comparador de alturas en plátanos">
@@ -28,6 +32,7 @@ function App() {
             <BananaComparisons />
           </Suspense>
         </section>
+
         <ContactSection />
       </main>
       <Footer />
