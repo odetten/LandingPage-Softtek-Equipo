@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import BananaRunner from './BananaRunner';
 
 const footerLinks = [
     {
@@ -50,12 +51,7 @@ export default function Footer() {
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-white/70">Para quienes siempre encuentran algo más que pelar. Sabores, arte y curiosidades para seguir explorando.</p>
                     </div>
-                    <a href="#interactivo" className="group block border-y border-white/20 py-8 transition-colors hover:border-[#E3F237]">
-                        <span className="text-sm font-bold uppercase tracking-[0.15em] text-white/65">Comparador interactivo</span>
-                        <h3 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">Mide el mundo<br />en plátanos.</h3>
-                        <p className="mt-4 max-w-sm text-base leading-relaxed text-white/70">Descubre cuántos plátanos hacen falta para alcanzar los edificios más altos.</p>
-                        <span className="mt-6 inline-flex min-h-11 items-center gap-4 text-sm font-bold uppercase tracking-widest text-[#E3F237]">Abrir comparador <span aria-hidden="true" className="text-2xl">↗</span></span>
-                    </a>
+                    <BananaRunner />
                 </motion.div>
             </div>
             <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 md:px-16 md:py-16">
