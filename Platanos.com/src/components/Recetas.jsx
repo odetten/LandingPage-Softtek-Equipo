@@ -1,31 +1,31 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const MilkIcon = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "#1f2937", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
+const MilkIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
     <path d="M8 2h8l-1 9H9L8 2z" />
     <path d="M7 11h10v9a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-9z" />
   </svg>
 );
 
-const BananaIcon = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "#1f2937", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
+const BananaIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
     <path d="M4 13c0-5 4-9 9-9 3 0 5 2 5 5 0 4-3 8-7 10-3 1-5 1-7-1z" />
     <path d="M4 13c1 2 3 3 5 3" />
   </svg>
 );
 
-const StrawberryIcon = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "#1f2937", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
+const StrawberryIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
     <path d="M12 22c-4 0-7-4-7-10 0-4 3-8 7-8s7 4 7 8c0 6-3 10-7 10z" />
     <path d="M9 4c1-2 3-2 3-2s2 0 3 2" />
-    <circle cx="10" cy="12" r="0.5" fill="#1f2937" />
-    <circle cx="14" cy="14" r="0.5" fill="#1f2937" />
-    <circle cx="12" cy="16" r="0.5" fill="#1f2937" />
+    <circle cx="10" cy="12" r="0.5" fill="currentColor" />
+    <circle cx="14" cy="14" r="0.5" fill="currentColor" />
+    <circle cx="12" cy="16" r="0.5" fill="currentColor" />
   </svg>
 );
 
-const FlourIcon = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "#1f2937", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
+const FlourIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
     <path d="M6 20h12" />
     <path d="M7 20v-6l5-4 5 4v6" />
     <path d="M5 14h14" />
@@ -33,42 +33,29 @@ const FlourIcon = ({ size = 22 }) => (
   </svg>
 );
 
-const EggIcon = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "#1f2937", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
+const EggIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
     <path d="M12 22c4 0 7-4 7-10 0-6-3-10-7-10S5 6 5 12c0 6 3 10 7 10z" />
   </svg>
 );
 
-const PlusIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" style={{ stroke: "white", strokeWidth: 2.5, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
-    <path d="M12 5v14M5 12h14" />
-  </svg>
-);
-
 const CloseIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
+  <svg width="24" height="24" viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
     <path d="M18 6L6 18M6 6l12 12" />
   </svg>
 );
 
 const ClockIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" style={{ stroke: "#1f2937", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
+  <svg width="16" height="16" viewBox="0 0 24 24" style={{ stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
     <circle cx="12" cy="12" r="10" />
     <path d="M12 6v6l4 2" />
-  </svg>
-);
-
-const FireIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" style={{ stroke: "#1f2937", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", fill: "none" }}>
-    <path d="M12 2c0 4-4 6-4 10a4 4 0 0 0 8 0c0-4-4-6-4-10z" />
   </svg>
 );
 
 const recipes = [
   {
     id: 1,
-    title: "Pan de Plátano Esponjoso",
-    subtitle: "Nuestro Pan de Plátano Premium",
+    title: "Pan de Plátano",
     description: "Hecho con plátanos maduros para un sabor increíble. Esponjoso y húmedo.",
     time: "60 min",
     difficulty: "Fácil",
@@ -90,7 +77,6 @@ const recipes = [
   {
     id: 2,
     title: "Licuado de Plátano y Fresa",
-    subtitle: "Refrescante y Nutritivo",
     description: "Una combinación perfecta de plátano y fresa para empezar el día.",
     time: "5 min",
     difficulty: "Muy Fácil",
@@ -110,8 +96,7 @@ const recipes = [
   },
   {
     id: 3,
-    title: "Hot Cakes de Plátano Sin Gluten",
-    subtitle: "Súper fáciles y rápidos de preparar",
+    title: "Hot Cakes Sin Gluten",
     description: "Deliciosos hot cakes sin gluten, perfectos para el desayuno.",
     time: "20 min",
     difficulty: "Fácil",
@@ -131,8 +116,7 @@ const recipes = [
   },
   {
     id: 4,
-    title: "Helado de Plátano con Un Solo Ingrediente",
-    subtitle: "Natural y Cremoso",
+    title: "Helado de Plátano",
     description: "Sin azúcar añadida. Solo necesitas plátanos congelados.",
     time: "10 min",
     difficulty: "Muy Fácil",
@@ -147,8 +131,7 @@ const recipes = [
   },
   {
     id: 5,
-    title: "Tostadas con Plátano y Mantequilla de Maní",
-    subtitle: "El Desayuno Perfecto",
+    title: "Tostadas con Plátano",
     description: "Energía y sabor para empezar el día.",
     time: "5 min",
     difficulty: "Muy Fácil",
@@ -175,15 +158,13 @@ const IconMap = {
   egg: EggIcon,
 };
 
-// Modal Component
+// Modal Component - Estilo brutalista/minimalista
 function RecipeModal({ recipe, onClose }) {
   const [translateY, setTranslateY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartY = useRef(0);
-  const modalRef = useRef(null);
   const contentRef = useRef(null);
 
-  // Bloquear scroll del body cuando el modal está abierto
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     const originalPosition = document.body.style.position;
@@ -210,7 +191,6 @@ function RecipeModal({ recipe, onClose }) {
 
   const handleTouchStart = (e) => {
     const content = contentRef.current;
-    // Solo iniciar drag si el scroll está en la parte superior
     if (content && content.scrollTop <= 5) {
       dragStartY.current = e.touches[0].clientY;
       setIsDragging(true);
@@ -239,122 +219,98 @@ function RecipeModal({ recipe, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4"
       onClick={onClose}
     >
-      {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/80 backdrop-blur-md"
         style={{ animation: "fadeIn 0.3s ease" }}
       />
 
-      {/* Modal Content */}
       <div
-        ref={modalRef}
-        className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl"
+        ref={contentRef}
+        className="relative w-full max-w-3xl bg-white h-full md:h-auto md:max-h-[90vh] md:rounded-3xl overflow-hidden"
         style={{
-          animation: "slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          animation: "slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
           transform: `translateY(${translateY}px)`,
           transition: isDragging ? "none" : "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-          maxHeight: "90vh",
-          display: "flex",
-          flexDirection: "column",
         }}
         onClick={(e) => e.stopPropagation()}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Drag handle indicator */}
-        <div className="absolute top-3 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="w-10 h-1 bg-gray-300 rounded-full" />
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 md:hidden">
+          <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
         </div>
 
-        {/* Header Image */}
-        <div className="relative h-40 md:h-56 flex-shrink-0">
-          <img
-            src={recipe.image}
-            alt={recipe.title}
-            className="w-full h-full object-cover rounded-t-3xl"
-          />
-          <div
-            className="absolute inset-0 rounded-t-3xl"
-            style={{
-              background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
-            }}
-          />
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-gray-900 hover:bg-white transition-colors shadow-lg z-10"
-            aria-label="Cerrar modal"
-          >
-            <CloseIcon />
-          </button>
-          <div className="absolute bottom-4 left-5 right-5 text-white">
-            <p className="text-xs font-medium opacity-90 mb-0.5">{recipe.subtitle}</p>
-            <h2 className="text-xl md:text-2xl font-bold leading-tight">{recipe.title}</h2>
-          </div>
-        </div>
-
-        {/* Scrollable Content */}
-        <div
-          ref={contentRef}
-          className="flex-1 overflow-y-auto p-5 md:p-7"
-          style={{ WebkitOverflowScrolling: "touch" }}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-md rounded-full hover:bg-white transition-colors"
+          aria-label="Cerrar"
         >
-          {/* Badges */}
-          <div className="flex items-center gap-2.5 mb-4">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
-              <ClockIcon /> {recipe.time}
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-800">
-              <FireIcon /> {recipe.difficulty}
-            </span>
+          <CloseIcon />
+        </button>
+
+        <div className="h-full overflow-y-auto">
+          <div className="relative h-64 md:h-96">
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 text-white">
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-2">{recipe.title}</h2>
+            </div>
           </div>
 
-          {/* Description */}
-          <p className="text-gray-600 mb-5 leading-relaxed text-sm">{recipe.description}</p>
+          <div className="p-6 md:p-10 space-y-8">
+            <div className="flex items-center gap-4 text-sm font-medium">
+              <span className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-full">
+                <ClockIcon /> {recipe.time}
+              </span>
+              <span className="text-gray-500">{recipe.difficulty}</span>
+            </div>
 
-          {/* Ingredients */}
-          <div className="mb-5">
-            <h3 className="text-sm font-bold text-gray-900 mb-2.5">Ingredientes</h3>
-            <div className="flex flex-wrap gap-2">
-              {recipe.ingredients.map((ingredient, index) => {
-                const IngredientIcon = IconMap[ingredient.icon] || BananaIcon;
-                return (
-                  <div
-                    key={index}
-                    className="flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-50 rounded-lg border border-gray-100"
-                  >
-                    <div className="text-gray-700">
-                      <IngredientIcon size={18} />
+            <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-light">
+              {recipe.description}
+            </p>
+
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Ingredientes</h3>
+              <div className="flex flex-wrap gap-3">
+                {recipe.ingredients.map((ingredient, index) => {
+                  const IngredientIcon = IconMap[ingredient.icon] || BananaIcon;
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl"
+                    >
+                      <div className="text-gray-900">
+                        <IngredientIcon size={20} />
+                      </div>
+                      <span className="text-sm font-medium text-gray-900">{ingredient.name}</span>
                     </div>
-                    <span className="text-xs font-medium text-gray-700">{ingredient.name}</span>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-4">Preparación</h3>
+              <div className="space-y-4">
+                {recipe.steps.map((step, index) => (
+                  <div key={index} className="flex gap-4">
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <p className="text-gray-700 leading-relaxed pt-0.5">{step}</p>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
-
-          {/* Steps */}
-          <div>
-            <h3 className="text-sm font-bold text-gray-900 mb-2.5">Preparación</h3>
-            <div className="space-y-2.5">
-              {recipe.steps.map((step, index) => (
-                <div key={index} className="flex gap-2.5">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-gray-900 text-white flex items-center justify-center text-[10px] font-bold mt-0.5">
-                    {index + 1}
-                  </span>
-                  <p className="text-gray-700 leading-relaxed text-sm">{step}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Close hint */}
-        <div className="flex-shrink-0 px-5 pb-3 text-center">
-          <p className="text-[10px] text-gray-400">Desliza hacia abajo o haz click fuera para cerrar</p>
         </div>
       </div>
 
@@ -366,7 +322,7 @@ function RecipeModal({ recipe, onClose }) {
         @keyframes slideUp {
           from {
             opacity: 0;
-            transform: translateY(30px) scale(0.95);
+            transform: translateY(100px) scale(0.95);
           }
           to {
             opacity: 1;
@@ -392,12 +348,12 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip, onOpenModal }) {
           }
         }}
         style={{ perspective: "1000px" }}
-        className="h-full min-h-[280px] w-full cursor-pointer"
+        className="h-full min-h-[280px] w-full cursor-pointer group"
       >
         <div
           style={{
             transformStyle: "preserve-3d",
-            transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s ease",
+            transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
             transform: isFlipped ? "rotateY(180deg) scale(1.03)" : "rotateY(0deg) scale(1)",
             position: "relative",
             width: "100%",
@@ -406,7 +362,7 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip, onOpenModal }) {
             zIndex: isFlipped ? 50 : 1,
           }}
         >
-          {/* FRONT: imagen + nombre */}
+          {/* FRONT: Solo imagen en gris + título minimalista */}
           <div
             style={{
               position: "absolute",
@@ -414,56 +370,24 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip, onOpenModal }) {
               backfaceVisibility: "hidden",
               borderRadius: "1.5rem",
               overflow: "hidden",
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
+              boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <img src={recipe.image} alt={recipe.title} className="absolute inset-0 h-full w-full object-cover" />
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.15) 70%, transparent 100%)",
-              }}
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="absolute inset-0 h-full w-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
             />
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all duration-700" />
 
-            <div className="absolute inset-0 flex flex-col justify-between p-5 text-white md:p-6">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
-                  <ClockIcon /> {recipe.time}
-                </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
-                  <FireIcon /> {recipe.difficulty}
-                </span>
-              </div>
-
-              <div>
-                <p className="mb-1 text-xs font-medium uppercase tracking-wider text-white/70">
-                  {recipe.subtitle}
-                </p>
-                <h3 className="mb-4 text-lg font-bold leading-tight md:text-xl lg:text-2xl">
-                  {recipe.title}
-                </h3>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-white/90">Ver receta</span>
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      onToggleFlip();
-                    }}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-gray-900 shadow-lg transition-transform hover:scale-110"
-                    aria-label={`Abrir receta ${recipe.title}`}
-                  >
-                    <PlusIcon />
-                  </button>
-                </div>
-              </div>
+            <div className="absolute inset-0 flex items-center justify-center p-6">
+              <h3 className="text-2xl md:text-3xl font-bold text-white text-center leading-tight tracking-tight drop-shadow-lg">
+                {recipe.title}
+              </h3>
             </div>
           </div>
 
-          {/* BACK: solo iconos de ingredientes + botón */}
+          {/* BACK: Ingredientes minimalistas y compactos */}
           <div
             style={{
               position: "absolute",
@@ -471,49 +395,46 @@ function RecipeCard({ recipe, isFlipped, onToggleFlip, onOpenModal }) {
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
               borderRadius: "1.5rem",
-              background: "rgba(255, 255, 255, 0.95)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid rgba(229, 231, 235, 0.8)",
-              boxShadow: isFlipped ? "0 50px 100px -20px rgba(0, 0, 0, 0.25)" : "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
-              padding: "1.25rem",
+              background: "#ffffff",
+              border: "1px solid #e5e7eb",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-between",
-              overflow: "hidden",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "1.5rem",
             }}
           >
-            <div className="text-center">
-              <h3 className="text-base font-bold text-gray-900 mb-1 leading-tight">{recipe.title}</h3>
-              <p className="text-[10px] text-gray-500 mb-3">Ingredientes</p>
+            <div className="text-center w-full">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 tracking-tight">{recipe.title}</h3>
 
-              <div className="flex flex-wrap justify-center gap-2">
+              <div className="flex flex-wrap justify-center gap-2 mb-6">
                 {recipe.ingredients.map((ingredient, index) => {
                   const IngredientIcon = IconMap[ingredient.icon] || BananaIcon;
                   return (
                     <div
                       key={index}
-                      className="flex flex-col items-center gap-1 p-2 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100 shadow-sm min-w-[60px]"
+                      className="flex flex-col items-center gap-1 p-2 border border-gray-100 rounded-xl bg-gray-50 min-w-[64px] hover:border-gray-300 transition-colors"
                     >
-                      <div className="text-gray-700">
-                        <IngredientIcon size={20} />
+                      <div className="text-gray-800">
+                        <IngredientIcon size={18} />
                       </div>
-                      <span className="text-[9px] font-medium text-gray-600 text-center leading-tight">{ingredient.name}</span>
+                      <span className="text-[10px] font-medium text-gray-600 leading-tight">{ingredient.name}</span>
                     </div>
                   );
                 })}
               </div>
-            </div>
 
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onOpenModal(recipe);
-              }}
-              className="w-full py-2 bg-gray-900 text-white rounded-lg font-medium text-xs hover:bg-gray-800 transition-colors shadow-md active:scale-95 transform duration-150"
-            >
-              Ver receta completa
-            </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenModal(recipe);
+                }}
+                className="w-full py-2.5 bg-black text-white text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-gray-800 transition-colors active:scale-95 transform duration-150"
+              >
+                Ver Receta
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -539,18 +460,18 @@ export default function Recetas() {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 px-4 py-12 md:px-8 md:py-20 lg:px-16">
+    <section className="min-h-screen bg-white px-4 py-16 md:px-8 md:py-24 lg:px-16">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 md:mb-16">
-          <h2 className="text-4xl font-bold tracking-tight text-gray-900 md:text-6xl">
-            Plátanos y Más Recetas
-          </h2>
-          <p className="mt-4 max-w-2xl text-lg text-gray-600">
-            Descubre deliciosas formas de disfrutar los plátanos con nuestras recetas fáciles y saludables.
+        <div className="mb-16 md:mb-24">
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter text-gray-900 mb-4">
+            PLÁTANOS
+          </h1>
+          <p className="text-lg md:text-2xl text-gray-400 font-light max-w-xl">
+            Recetas minimalistas.<br />Sabor máximo.
           </p>
         </div>
 
-        {/* Grid */}
+        {/* Bento Grid con la distribución anterior */}
         <div className="grid auto-rows-[minmax(280px,auto)] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           {recipes.map((recipe) => (
             <RecipeCard
@@ -562,19 +483,7 @@ export default function Recetas() {
             />
           ))}
         </div>
-
-        <div className="mt-12 text-center">
-          <p className="inline-flex items-center gap-2 text-sm text-gray-500">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-            Haz click en cualquier tarjeta para ver los ingredientes
-          </p>
-        </div>
       </div>
-
-      {/* Modal */}
-      {modalRecipe && (
-        <RecipeModal recipe={modalRecipe} onClose={handleCloseModal} />
-      )}
     </section>
   );
 }
