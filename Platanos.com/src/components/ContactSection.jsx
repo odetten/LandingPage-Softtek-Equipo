@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import luisImg from "../assets/Luis.png";
-import yahirImg from "../assets/Yahir.png";
-import ernestoImg from "../assets/Ernesto.png";
-import brandonImg from "../assets/Brandon.png";
 import "../styles/contact.css";
 
 const team = [
-  { name: "Luis", image: luisImg },
-  { name: "Yahir", image: yahirImg },
-  { name: "Ernesto", image: ernestoImg },
-  { name: "Brandon", image: brandonImg },
+  { name: "Luis", image: "/img/banana-hero.png" },
+  { name: "Yahir", image: "/img/morado.png" },
+  { name: "Ernesto", image: "/img/macho.png" },
+  { name: "Brandon", image: "/img/azul.png" },
 ];
 
 export default function ContactSection() {

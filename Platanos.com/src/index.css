@@ -740,6 +740,12 @@ a {
   background: color-mix(in srgb, var(--banana-yellow) 24%, var(--color-surface));
 }
 
+.banana-hero__scroll-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: currentColor;
+}
+
 .banana-hero__signature,
 .site-wordmark {
   font-size: clamp(1.5rem, 2.2vw, 2rem);
