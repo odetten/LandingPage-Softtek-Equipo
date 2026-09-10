@@ -13,6 +13,18 @@ html {
   scroll-behavior: smooth;
 }
 
+@keyframes recipe-expand {
+  from {
+    opacity: 0;
+    transform: scale(0.08);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .banana-cursor {
   position: fixed;
   top: 0;
@@ -26,7 +38,12 @@ html {
   transition: filter 280ms ease;
   will-change: transform;
 }
-@media (any-hover: none) { .banana-cursor { display: none; } }
+
+@media (any-hover: none) {
+  .banana-cursor {
+    display: none;
+  }
+}
 
 button,
 a {
@@ -84,6 +101,7 @@ a {
   transition: transform 220ms ease, opacity 220ms ease;
   content: "";
 }
+
 .site-header__link[aria-current="location"]::after {
   opacity: 1;
   transform: scaleX(1);
@@ -115,7 +133,10 @@ a {
   font-size: 1.5rem;
   transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-.site-header__menu-toggle[aria-expanded="true"] span { transform: rotate(45deg); }
+
+.site-header__menu-toggle[aria-expanded="true"] span {
+  transform: rotate(45deg);
+}
 
 @media (max-width: 1023px) {
   .site-header__menu-toggle {
@@ -166,8 +187,16 @@ a {
     transform: translateY(0);
     transition-delay: calc(var(--nav-index) * 25ms);
   }
-  .site-header__link[aria-current="location"] { background: #edf1df; }
-  .site-header__link::after { left: 0.5rem; right: 0.5rem; bottom: 5px; }
+
+  .site-header__link[aria-current="location"] {
+    background: #edf1df;
+  }
+
+  .site-header__link::after {
+    left: 0.5rem;
+    right: 0.5rem;
+    bottom: 5px;
+  }
 }
 
 .banana-types {
@@ -555,7 +584,7 @@ a {
   text-align: left;
 }
 
-.banana-hero__title > span {
+.banana-hero__title>span {
   display: block;
   padding: 0.03em 0.045em 0.085em;
   white-space: nowrap;
@@ -632,10 +661,12 @@ a {
   letter-spacing: -0.04em;
 }
 
-.banana-hero__signature { margin: 0 0 0.35rem; }
+.banana-hero__signature {
+  margin: 0 0 0.35rem;
+}
 
 .banana-hero__signature span,
-.site-wordmark > span {
+.site-wordmark>span {
   color: #829b16;
 }
 
@@ -760,7 +791,9 @@ a {
     font-size: 1.6rem;
   }
 
-  .site-wordmark { font-size: 1.6rem; }
+  .site-wordmark {
+    font-size: 1.6rem;
+  }
 
   .hero-art-card {
     grid-column: 1;
@@ -779,11 +812,15 @@ a {
 }
 
 @media (max-width: 380px) {
-  .banana-hero { padding-inline: 1rem; }
+  .banana-hero {
+    padding-inline: 1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 
   .site-header__adaptive,
   .site-header__navigation,
