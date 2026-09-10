@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import BananaRunner from './BananaRunner';
 
 const footerLinks = [
     {
@@ -40,7 +41,7 @@ export default function Footer() {
     };
 
     return (
-        <footer className="site-footer relative overflow-hidden bg-[#0a0a0a] text-white" aria-label="Pie de página">
+        <footer id="footer" className="site-footer relative overflow-hidden bg-[#0a0a0a] text-white" aria-label="Pie de página">
             <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <div className="mx-auto max-w-7xl border-b border-white/10 px-5 pb-12 pt-16 sm:px-8 md:px-16 md:pb-16 md:pt-20">
                 <motion.div {...reveal} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
@@ -50,12 +51,7 @@ export default function Footer() {
                         </h2>
                         <p className="max-w-md text-lg leading-relaxed text-white/70">Para quienes siempre encuentran algo más que pelar. Sabores, arte y curiosidades para seguir explorando.</p>
                     </div>
-                    <a href="#interactivo" className="group block border-y border-white/20 py-8 transition-colors hover:border-[#E3F237]">
-                        <span className="text-sm font-bold uppercase tracking-[0.15em] text-white/65">Comparador interactivo</span>
-                        <h3 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight md:text-4xl">Mide el mundo<br />en plátanos.</h3>
-                        <p className="mt-4 max-w-sm text-base leading-relaxed text-white/70">Descubre cuántos plátanos hacen falta para alcanzar los edificios más altos.</p>
-                        <span className="mt-6 inline-flex min-h-11 items-center gap-4 text-sm font-bold uppercase tracking-widest text-[#E3F237]">Abrir comparador <span aria-hidden="true" className="text-2xl">↗</span></span>
-                    </a>
+                    <BananaRunner />
                 </motion.div>
             </div>
             <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 md:px-16 md:py-16">
@@ -81,7 +77,7 @@ export default function Footer() {
             <div className="border-t border-white/10">
                 <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 py-8 text-center sm:px-8 md:flex-row md:px-16 md:text-left">
                     <p className="text-sm text-white/65">© {new Date().getFullYear()} Plátanos.com — Todos los derechos reservados.</p>
-                    <span className="text-sm text-white/65">Hecho con 🍌 en México</span>
+                    <span className="text-sm text-white/65">Hecho con platanos en México</span>
                 </div>
             </div>
             <div className="pointer-events-none absolute bottom-0 right-0 h-96 w-96 rounded-full bg-[#E3F237]/5 blur-[120px]" aria-hidden="true" />

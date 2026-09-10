@@ -8,6 +8,8 @@ import ComedianSection from "./components/ComedianSection";
 import useScrollReveal from "./hooks/useScrollReveal";
 import ContactSection from './components/ContactSection';
 import BananaCursor from './components/BananaCursor';
+import BananaVideoTitle from './components/LetrasFondo';
+
 const BananaComparisons = lazy(() => import("./components/BananaComparisons"));
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
         <HeroBenefits />
         <BananasCarousel />
         <BananaTypes />
+        <BananaVideoTitle />
         <ComedianSection />
         <section id="interactivo" aria-label="Comparador de alturas en plátanos">
           <Suspense fallback={<p className="p-8 text-center" role="status">Cargando comparador…</p>}>

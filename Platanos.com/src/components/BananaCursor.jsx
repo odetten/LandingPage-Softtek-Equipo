@@ -1,61 +1,128 @@
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import bananaImg from "../assets/platano.png";
 
 export default function BananaCursor() {
   const cursorRef = useRef(null);
+  const styleRef = useRef(null);
+  const target = useRef({ x: 0, y: 0 });
+  const current = useRef({ x: 0, y: 0 });
+  const rafId = useRef(null);
+  const visible = useRef(false);
 
   useEffect(() => {
     const cursor = cursorRef.current;
-    let point = null;
-    let frame = 0;
+    const style = styleRef.current;
     let currentFilter = "";
-    const hide = () => {
-      point = null;
+    const footer = document.getElementById("footer");
+
+    // Funciones para el footer
+    const handleFooterEnter = () => {
       cursor.style.opacity = "0";
+      // Cambiar CSS global para mostrar cursor default
+      style.textContent = `
+        @media (hover: hover) and (pointer: fine) {
+          * { cursor: auto !important; }
+        }
+      `;
     };
-    const paint = () => {
-      frame = 0;
-      if (!point) return;
-      cursor.style.transform = `translate3d(${point.x}px, ${point.y}px, 0)`;
-      const surface = document.elementFromPoint(point.x, point.y)?.closest("[data-banana-cursor-filter]");
-      const filter = surface?.dataset.bananaCursorFilter ?? "hue-rotate(0deg) saturate(1)";
-      if (filter !== currentFilter) {
-        cursor.style.filter = filter;
-        currentFilter = filter;
+    const handleFooterLeave = () => {
+      cursor.style.opacity = "1";
+      // Volver al CSS original para mostrar cursor personalizado
+      style.textContent = `
+        @media (hover: hover) and (pointer: fine) {
+          * { cursor: none !important; }
+        }
+      `;
+    };
+
+    // Agregar listeners del footer si existe
+    if (footer) {
+      footer.addEventListener("mouseenter", handleFooterEnter);
+      footer.addEventListener("mouseleave", handleFooterLeave);
+    }
+
+    const loop = () => {
+      current.current.x += (target.current.x - current.current.x) * 0.18;
+      current.current.y += (target.current.y - current.current.y) * 0.18;
+
+      cursor.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) translate(-50%, -50%)`;
+
+      if (visible.current) {
+        const surface = document
+          .elementFromPoint(target.current.x, target.current.y)
+          ?.closest("[data-banana-cursor-filter]");
+        const filter = surface?.dataset.bananaCursorFilter ?? "hue-rotate(0deg) saturate(1)";
+        if (filter !== currentFilter) {
+          cursor.style.filter = filter;
+          currentFilter = filter;
+        }
       }
+
+      rafId.current = requestAnimationFrame(loop);
+    };
+
+    const show = () => {
+      visible.current = true;
       cursor.style.opacity = "1";
     };
-    const schedule = () => {
-      if (point && !frame) frame = window.requestAnimationFrame(paint);
+    const hide = () => {
+      visible.current = false;
+      cursor.style.opacity = "0";
     };
+
     const move = (event) => {
       if (event.pointerType !== "mouse") return hide();
-      point = { x: event.clientX, y: event.clientY };
-      schedule();
+      target.current = { x: event.clientX, y: event.clientY };
+      if (!visible.current) {
+        current.current = { ...target.current }; // evita que "vuele" desde (0,0)
+        show();
+      }
     };
-    const leave = (event) => { if (!event.relatedTarget) hide(); };
-    const visibility = () => { if (document.hidden) hide(); };
-    const types = document.getElementById("tipos");
-    const selection = new MutationObserver(schedule);
-    if (types) selection.observe(types, { attributes: true, attributeFilter: ["data-banana-cursor-filter"] });
+
+    const leave = (event) => {
+      if (!event.relatedTarget) hide();
+    };
+    const visibility = () => {
+      if (document.hidden) hide();
+    };
 
     window.addEventListener("pointermove", move, { passive: true });
-    window.addEventListener("scroll", schedule, { passive: true, capture: true });
-    window.addEventListener("resize", schedule);
     window.addEventListener("blur", hide);
     document.addEventListener("pointerout", leave);
     document.addEventListener("visibilitychange", visibility);
+
+    rafId.current = requestAnimationFrame(loop);
+
     return () => {
-      window.cancelAnimationFrame(frame);
-      selection.disconnect();
+      cancelAnimationFrame(rafId.current);
       window.removeEventListener("pointermove", move);
-      window.removeEventListener("scroll", schedule, true);
-      window.removeEventListener("resize", schedule);
       window.removeEventListener("blur", hide);
       document.removeEventListener("pointerout", leave);
       document.removeEventListener("visibilitychange", visibility);
+      if (footer) {
+        footer.removeEventListener("mouseenter", handleFooterEnter);
+        footer.removeEventListener("mouseleave", handleFooterLeave);
+      }
     };
   }, []);
 
-  return <img ref={cursorRef} className="banana-cursor" src={bananaImg} alt="" aria-hidden="true" draggable="false" />;
+  return createPortal(
+    <>
+      <style ref={styleRef}>{`
+        @media (hover: hover) and (pointer: fine) {
+          * { cursor: none !important; }
+        }
+      `}</style>
+      <img
+        ref={cursorRef}
+        className="fixed left-0 top-0 z-[9999] w-14 opacity-0 pointer-events-none transition-opacity duration-150 ease-in-out will-change-transform"
+        src={bananaImg}
+        alt=""
+        aria-hidden="true"
+        draggable="false"
+      />
+    </>,
+    document.body
+  );
 }

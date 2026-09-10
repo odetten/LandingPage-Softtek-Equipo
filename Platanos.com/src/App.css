@@ -188,3 +188,26 @@ body, button, a {
 *, html, body, button, a, input, select, textarea {
   cursor: none !important;
 }
+
+.banana-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  will-change: transform, filter;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body,
+  button,
+  a,
+  input,
+  textarea,
+  select,
+  * {
+    cursor: none !important;
+  }
+}

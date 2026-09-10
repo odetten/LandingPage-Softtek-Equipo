@@ -52,12 +52,12 @@ export default function ComedianSection() {
         </div>
         <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-4">
           <div className="flex flex-wrap justify-center text-center">
-            <h2 className="rounded-l-[25px] bg-black px-4 py-2 text-2xl font-black text-[#fbd43e] md:text-4xl">[Comedian]</h2>
-            <p className="rounded-r-[25px] bg-[#fbd43e] px-4 py-2 text-2xl font-black text-black md:text-4xl">por Maurizio Cattelan · 2019</p>
+            <h2 className="rounded-l-[25px] bg-black px-4 py-2 text-4xl font-black text-[#fbd43e] md:text-6xl">[Comedian]</h2>
+            <p className="rounded-r-[25px] bg-[#fbd43e] px-4 py-2 text-4xl font-black text-black md:text-6xl">por Maurizio Cattelan · 2019</p>
           </div>
         </div>
         <div className="absolute bottom-10 left-0 z-10 w-full px-6 text-center">
-          <p className="text-sm font-bold tracking-wide text-black md:text-2xl">Vendido por 6,24 millones de dólares en 2024.</p>
+          <p className="text-sm font-bold tracking-wide text-black md:text-4xl">Vendido por 6,24 millones de dólares en 2024.</p>
         </div>
       </section>
     </>
