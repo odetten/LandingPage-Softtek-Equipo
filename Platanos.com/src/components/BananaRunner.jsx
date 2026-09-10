@@ -13,8 +13,8 @@ const GRAVITY = 0.85;
 const JUMP_VELOCITY = -13.5;
 
 // Rango aleatorio de separación entre licuadoras (en frames)
-const SPAWN_MIN_FRAMES = 50;
-const SPAWN_MAX_FRAMES = 110;
+const SPAWN_MIN_FRAMES = 20;
+const SPAWN_MAX_FRAMES = 130;
 
 function getRandomSpawnFrames() {
   return Math.floor(SPAWN_MIN_FRAMES + Math.random() * (SPAWN_MAX_FRAMES - SPAWN_MIN_FRAMES));
@@ -166,10 +166,9 @@ export default function BananaRunner() {
   }, [gameState]);
 
   return (
-    <div className="border-y border-white/20 py-8">
-      <span className="text-sm font-bold uppercase tracking-[0.15em] text-white/65">Mini-juego</span>
+    <div className="">Antes de irte, prueba no ser licuado en nuestro minijuego.
       <h3 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl">
-        Plátano corredor
+        Banana-runner
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-white/70">
         <span className="text-[#E3F237]">↑</span> para saltar las licuadoras ·{' '}

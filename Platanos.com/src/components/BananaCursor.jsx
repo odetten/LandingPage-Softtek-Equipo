@@ -4,6 +4,7 @@ import bananaImg from "../assets/platano.png";
 
 export default function BananaCursor() {
   const cursorRef = useRef(null);
+  const styleRef = useRef(null);
   const target = useRef({ x: 0, y: 0 });
   const current = useRef({ x: 0, y: 0 });
   const rafId = useRef(null);
@@ -11,7 +12,35 @@ export default function BananaCursor() {
 
   useEffect(() => {
     const cursor = cursorRef.current;
+    const style = styleRef.current;
     let currentFilter = "";
+    const footer = document.getElementById("footer");
+
+    // Funciones para el footer
+    const handleFooterEnter = () => {
+      cursor.style.opacity = "0";
+      // Cambiar CSS global para mostrar cursor default
+      style.textContent = `
+        @media (hover: hover) and (pointer: fine) {
+          * { cursor: auto !important; }
+        }
+      `;
+    };
+    const handleFooterLeave = () => {
+      cursor.style.opacity = "1";
+      // Volver al CSS original para mostrar cursor personalizado
+      style.textContent = `
+        @media (hover: hover) and (pointer: fine) {
+          * { cursor: none !important; }
+        }
+      `;
+    };
+
+    // Agregar listeners del footer si existe
+    if (footer) {
+      footer.addEventListener("mouseenter", handleFooterEnter);
+      footer.addEventListener("mouseleave", handleFooterLeave);
+    }
 
     const loop = () => {
       current.current.x += (target.current.x - current.current.x) * 0.18;
@@ -71,12 +100,16 @@ export default function BananaCursor() {
       window.removeEventListener("blur", hide);
       document.removeEventListener("pointerout", leave);
       document.removeEventListener("visibilitychange", visibility);
+      if (footer) {
+        footer.removeEventListener("mouseenter", handleFooterEnter);
+        footer.removeEventListener("mouseleave", handleFooterLeave);
+      }
     };
   }, []);
 
   return createPortal(
     <>
-      <style>{`
+      <style ref={styleRef}>{`
         @media (hover: hover) and (pointer: fine) {
           * { cursor: none !important; }
         }
