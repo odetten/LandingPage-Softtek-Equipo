@@ -20,6 +20,19 @@ function getRandomSpawnFrames() {
   return Math.floor(SPAWN_MIN_FRAMES + Math.random() * (SPAWN_MAX_FRAMES - SPAWN_MIN_FRAMES));
 }
 
+function UpArrowIcon() {
+  return (
+    <span className="mx-2 inline-block align-middle text-[var(--banana-yellow)]">
+      <span className="sr-only">flecha arriba</span>
+      {/* Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com
+          License: https://fontawesome.com/license/free - Copyright 2026 Fonticons, Inc. */}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="h-5 w-5 fill-current" aria-hidden="true" focusable="false">
+        <path d="M297.4 201.4C309.9 188.9 330.2 188.9 342.7 201.4L502.7 361.4C515.2 373.9 515.2 394.2 502.7 406.7C490.2 419.2 469.9 419.2 457.4 406.7L320 269.3L182.6 406.6C170.1 419.1 149.8 419.1 137.3 406.6C124.8 394.1 124.8 373.8 137.3 361.3L297.3 201.3z" />
+      </svg>
+    </span>
+  );
+}
+
 export default function BananaRunner() {
   const [gameState, setGameState] = useState('idle'); // 'idle' | 'playing' | 'gameover'
   const [score, setScore] = useState(0);
@@ -171,7 +184,7 @@ export default function BananaRunner() {
         Banana runner
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-white/70">
-        <span className="text-[var(--banana-yellow)]">↑</span> para saltar las licuadoras ·{' '}
+        <UpArrowIcon /> para saltar las licuadoras ·{' '}
         <span className="text-[var(--banana-yellow)]">espacio</span> para reintentar
       </p>
 
@@ -225,7 +238,7 @@ export default function BananaRunner() {
         {gameState === 'idle' && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-center">
             <p className="text-sm font-bold uppercase tracking-widest text-[var(--banana-yellow)]">
-              Presiona ↑ para empezar
+              Presiona <UpArrowIcon /> para empezar
             </p>
           </div>
         )}
