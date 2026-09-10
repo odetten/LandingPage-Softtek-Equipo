@@ -5,8 +5,11 @@ function Hero() {
         <section id="inicio" className="banana-hero" aria-labelledby="hero-title">
             <div className="banana-hero__stage">
                 <h1 id="hero-title" className="banana-hero__title">
-                    <span data-reveal="line" data-reveal-delay="60">Puro arte.</span>
-                    <span className="banana-hero__gradient" data-reveal="line" data-reveal-delay="220">Con cáscara.</span>
+                    <span className="banana-hero__line banana-hero__line--first">Puro arte.</span>
+                    <span className="banana-hero__line banana-hero__line--gradient">
+                        <span>Con cáscara.</span>
+                        <span className="banana-hero__gradient-fill" aria-hidden="true">Con cáscara.</span>
+                    </span>
                 </h1>
 
                 <div className="banana-hero__fruit">

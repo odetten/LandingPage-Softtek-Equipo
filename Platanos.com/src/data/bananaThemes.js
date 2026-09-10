@@ -1,8 +1,8 @@
 // Shared by the variety carousel and growing regions map.
 export const bananaThemes = {
   amarillo: {
-    background: "#E3F237",
-    ink: "#111111",
+    background: "var(--banana-yellow)",
+    ink: "var(--color-ink)",
     accent: "#6B5B00",
     cursorFilter: "hue-rotate(0deg) saturate(1)",
   },
@@ -25,7 +25,7 @@ export const bananaThemes = {
     cursorFilter: "hue-rotate(155deg) saturate(0.85)",
   },
   dominicano: {
-    background: "#F9D74C",
+    background: "var(--banana-yellow-warm)",
     ink: "#271409",
     accent: "#8B4518",
     cursorFilter: "hue-rotate(-25deg) saturate(1.25)",

@@ -21,7 +21,7 @@ function AnimatedNumber({ value }) {
   }, [value, count, reducedMotion]);
 
   return (
-    <p className="text-4xl font-black leading-none text-[#1f1e20]">
+    <p className="text-4xl font-black leading-none text-[var(--color-dark)]">
       {reducedMotion ? value.toLocaleString() : display}
     </p>
   );
@@ -62,25 +62,25 @@ function BananaComparisons() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="min-h-screen overflow-hidden bg-[#1f1e20] px-[8%] py-24"
+        className="banana-comparisons min-h-screen overflow-hidden"
       >
         <div className="mx-auto max-w-5xl">
-          <h2 className="select-none text-center font-black leading-[0.82] tracking-tight text-white text-[13vw] sm:text-[9rem] md:text-[4rem] lg:text-[5.5rem]">
+          <h2 className="banana-comparisons__title select-none text-center font-black text-white">
             ¿Qué tan grande es un plátano?
           </h2>
 
-          <div className="mx-auto mt-16 grid max-w-4xl gap-10 md:grid-cols-2">
+          <div className="banana-comparisons__content mx-auto mt-16 grid max-w-4xl gap-10 md:grid-cols-2">
             {/* Columna izquierda: filtro + lista */}
             <div>
-              <div className="mb-4 flex gap-1 text-xs font-semibold uppercase tracking-wide text-white/50">
+              <div className="banana-comparisons__filters mb-4 flex gap-1 text-xs font-semibold uppercase tracking-wide text-white/50">
                 {["todos", "mundo", "mexico"].map((cat) => (
                   <button
                     key={cat}
                     onClick={() => changeCategory(cat)}
                     aria-pressed={filterCategory === cat}
-                    className={`rounded-[25px] px-3 py-1 transition-colors ${
+                    className={`banana-comparisons__filter rounded-full px-3 py-1 transition-colors ${
                       filterCategory === cat
-                        ? "bg-[#fbd43e] text-black"
+                        ? "is-active"
                         : "hover:text-white"
                     }`}
                   >
@@ -95,7 +95,7 @@ function BananaComparisons() {
                   variants={listVariants}
                   initial="hidden"
                   animate="visible"
-  className="max-h-[368px] space-y-3 overflow-y-auto overflow-x-visible p-1 px-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  className="banana-comparisons__list max-h-[368px] space-y-3 overflow-y-auto overflow-x-visible p-1 px-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 >
                   {filtered.map((item) => {
                     const isSelected = selected?.name === item.name;
@@ -107,12 +107,12 @@ function BananaComparisons() {
                               aria-pressed={isSelected}
                               whileHover={{ scale: 1.03 }}
                               whileTap={{ scale: 0.98 }}
-                              className="relative block w-full overflow-hidden rounded-[25px] border border-white/1 bg-white/4 px-5 py-4 text-left text-sm font-semibold"
+                              className="banana-comparisons__option relative block w-full overflow-hidden border border-white/10 bg-white/5 px-5 py-4 text-left text-sm font-semibold"
                             >
                         {isSelected && (
                           <motion.div
                             layoutId="selected-pill"
-                            className="absolute inset-0 bg-[#fbd43e]"
+                            className="banana-comparisons__selection absolute inset-0"
                             transition={{ type: "spring", stiffness: 350, damping: 30 }}
                           />
                         )}
@@ -128,7 +128,7 @@ function BananaComparisons() {
                   })}
                 </motion.div>
 
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-b from-[#1f1e20]/0 to-[#1f1e20]" />
+                <div className="banana-comparisons__fade pointer-events-none absolute inset-x-0 bottom-0 h-12" />
               </div>
             </div>
 
@@ -161,12 +161,12 @@ function BananaResult({ item }) {
 
     
     <div className="flex flex-col items-center text-center">
-      <div className="mb-6 flex aspect-square w-full max-w-[280px] items-center justify-center rounded-[25px] bg-white/10 shadow-md">
+      <div className="banana-comparisons__image mb-6 flex aspect-square w-full max-w-[280px] items-center justify-center overflow-hidden bg-white/10">
         {item.image ? (
           <img
             src={item.image}
             alt={item.name}
-            className="h-full w-full rounded-2xl object-cover"
+            className="h-full w-full object-cover"
           />
         ) : (
           <span className="px-6 text-xs font-semibold text-white/40">
@@ -177,8 +177,8 @@ function BananaResult({ item }) {
 
       <h3 className="mb-4 text-lg font-black text-white">{item.name}</h3>
 
-      <div className="flex w-full max-w-[320px] items-stretch rounded-[25px] bg-[#fbd43e]">
-        <div className="flex flex-1 flex-col items-center justify-center px-4 py-5">
+      <div className="banana-comparisons__result flex w-full max-w-[320px] items-stretch">
+        <div className="flex flex-1 flex-col items-center justify-center border-r border-black/10 px-4 py-5">
           <AnimatedNumber value={bananas} />
           <p className="mt-2 text-xs font-medium text-black/70">
             plátanos de altura
@@ -186,7 +186,7 @@ function BananaResult({ item }) {
         </div>
 
         <div className="flex flex-1 flex-col items-center justify-center px-4 py-5">
-          <p className="text-4xl font-black leading-none text-[#1f1e20]">
+          <p className="text-4xl font-black leading-none text-[var(--color-dark)]">
             {item.heightM}
           </p>
           <p className="mt-2 text-xs font-medium text-black/70">

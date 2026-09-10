@@ -11,7 +11,7 @@ const bananaSlides = [
         title: 'Plátanos',
         subtitle: 'Cavendish / Tabasco',
         description: 'El estándar comercial de pulpa cremosa y dulce. Ideal para consumo fresco diario.',
-        image: '/img/tabasco.png',
+        image: '/img/banana-hero.png',
         imgPosition: 'right',
         imgRotation: 0,
     },
@@ -66,7 +66,7 @@ const imageVariants = {
 
 export default function BananasCarousel() {
     const [[current, direction], setCurrent] = useState([0, 1]);
-    const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
     const containerRef = useRef(null);
     const reducedMotion = useReducedMotion();
     const isInView = useInView(containerRef, { amount: 0.25 });
@@ -119,7 +119,6 @@ export default function BananasCarousel() {
             data-banana-cursor-filter={theme.cursorFilter}
             style={{ '--variety-background': theme.background, '--variety-ink': theme.ink }}
             onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => { mouseX.set(0); mouseY.set(0); }}
             onFocusCapture={(event) => {
                 if (!event.currentTarget.contains(event.relatedTarget)) setIsAutoPlaying(false);
@@ -141,10 +140,6 @@ export default function BananasCarousel() {
                 />
             </AnimatePresence>
             <div className="banana-carousel__inner">
-                <div className="banana-carousel__heading" aria-hidden="true">
-                    <div><span>Variedad {String(current + 1).padStart(2, '0')}</span><div className="banana-carousel__bar" /></div>
-                    <div className="banana-carousel__count"><strong>{String(current + 1).padStart(2, '0')}</strong><span>/ {String(bananaSlides.length).padStart(2, '0')}</span></div>
-                </div>
                 <div className={`banana-carousel__stage${slide.imgPosition === 'left' ? ' is-reversed' : ''}`}>
                     <AnimatePresence mode="wait" initial={false}>
                         <motion.div

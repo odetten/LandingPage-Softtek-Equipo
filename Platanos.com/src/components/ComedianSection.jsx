@@ -6,7 +6,7 @@ const BananaScene = lazy(() => import("./BananaScene"));
 
 function ArtworkPreview() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-white">
+    <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-surface)]">
       <img src={artwork} alt="Comedian, de Maurizio Cattelan" width="1200" height="630" className="max-h-[75vh] w-[80%] object-contain" />
     </div>
   );
@@ -25,23 +25,23 @@ export default function ComedianSection() {
 
   return (
     <>
-      <section id="arte" className="flex min-h-screen items-center justify-center bg-white px-[8%] text-center">
+      <section id="arte" className="art-statement flex min-h-screen items-center justify-center text-center">
         <div ref={fadeRef1}>
-          <h2 className="text-6xl font-black text-[#fbd43e] md:text-8xl lg:text-[100px]">
-            No es solo una <span className="block text-[#222]">fruta</span>
+          <h2 className="art-statement__title art-statement__title--accent">
+            No es solo una <span className="block">fruta</span>
           </h2>
         </div>
       </section>
 
-      <section className="flex min-h-screen items-center justify-center bg-white px-[8%] text-center">
+      <section className="art-statement flex min-h-screen items-center justify-center text-center">
         <div ref={fadeRef2}>
-          <h2 className="text-6xl font-black text-[#222] md:text-8xl lg:text-[100px]">
-            También es <span className="block text-[#fbd43e]">una obra de arte</span>
+          <h2 className="art-statement__title">
+            También es <span className="block text-[var(--banana-yellow)]">una obra de arte</span>
           </h2>
         </div>
       </section>
 
-      <section ref={sceneSectionRef} id="modelo-3d" className="relative h-[200vh] bg-white" aria-label="Comedian, de Maurizio Cattelan">
+      <section ref={sceneSectionRef} id="modelo-3d" className="relative h-[200vh] bg-[var(--color-surface)]" aria-label="Comedian, de Maurizio Cattelan">
         <div className="sticky top-0 h-screen w-full">
           <ArtworkPreview />
           <SceneBoundary>
@@ -51,13 +51,13 @@ export default function ComedianSection() {
           </SceneBoundary>
         </div>
         <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center px-4">
-          <div className="flex flex-wrap justify-center text-center">
-            <h2 className="rounded-l-[25px] bg-black px-4 py-2 text-4xl font-black text-[#fbd43e] md:text-6xl">[Comedian]</h2>
-            <p className="rounded-r-[25px] bg-[#fbd43e] px-4 py-2 text-4xl font-black text-black md:text-6xl">por Maurizio Cattelan · 2019</p>
+          <div className="artwork-label flex justify-center text-center">
+            <h2>[Comedian]</h2>
+            <p>por Maurizio Cattelan · 2019</p>
           </div>
         </div>
         <div className="absolute bottom-10 left-0 z-10 w-full px-6 text-center">
-          <p className="text-sm font-bold tracking-wide text-black md:text-4xl">Vendido por 6,24 millones de dólares en 2024.</p>
+          <p className="artwork-sale">Vendido por 6,24 millones de dólares en 2024.</p>
         </div>
       </section>
     </>

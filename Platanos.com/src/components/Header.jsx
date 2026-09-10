@@ -131,11 +131,11 @@ function Header() {
     }, []);
 
     return (
-        <header ref={headerRef} className="fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between px-[8%]">
+        <header ref={headerRef} className="site-header fixed left-0 top-0 z-50 flex h-20 w-full items-center justify-between">
             <a
                 href="#inicio"
                 data-header-contrast="logo"
-                style={{ color: textColors.logo ?? "#1a1a1a" }}
+                style={{ color: textColors.logo ?? "var(--color-ink)" }}
                 aria-label="Plátanos, volver al inicio"
                 className="site-header__adaptive no-underline"
                 onClick={() => setIsMenuOpen(false)}
@@ -148,7 +148,7 @@ function Header() {
                 type="button"
                 className="site-header__adaptive site-header__menu-toggle"
                 data-header-contrast="menu"
-                style={{ color: textColors.menu ?? "#1a1a1a" }}
+                style={{ color: textColors.menu ?? "var(--color-ink)" }}
                 aria-expanded={isMenuOpen}
                 aria-controls="primary-navigation"
                 aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
@@ -175,7 +175,7 @@ function Header() {
                         aria-label={item.available ? undefined : `${item.label}, próximamente`}
                         title={item.available ? undefined : "Próximamente"}
                         data-header-contrast={item.href}
-                        style={{ "--nav-index": index, color: isMobile ? "#1a1a1a" : textColors[item.href] ?? "#1a1a1a" }}
+                        style={{ "--nav-index": index, color: isMobile ? "var(--color-ink)" : textColors[item.href] ?? "var(--color-ink)" }}
                         className="site-header__adaptive site-header__link"
                         onClick={() => {
                             if (item.available) setIsMenuOpen(false);

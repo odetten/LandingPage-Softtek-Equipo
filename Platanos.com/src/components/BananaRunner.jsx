@@ -166,17 +166,17 @@ export default function BananaRunner() {
   }, [gameState]);
 
   return (
-    <div className="">Antes de irte, prueba no ser licuado en nuestro minijuego.
-      <h3 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl">
-        Banana-runner
+    <div>
+      <h3 className="text-2xl font-extrabold leading-tight tracking-tight text-white md:text-3xl">
+        Banana runner
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-white/70">
-        <span className="text-[#E3F237]">↑</span> para saltar las licuadoras ·{' '}
-        <span className="text-[#E3F237]">espacio</span> para reintentar
+        <span className="text-[var(--banana-yellow)]">↑</span> para saltar las licuadoras ·{' '}
+        <span className="text-[var(--banana-yellow)]">espacio</span> para reintentar
       </p>
 
       <div
-        className="relative mt-6 w-full max-w-md select-none overflow-hidden rounded-lg border border-white/10 bg-white/5"
+        className="relative mt-6 w-full max-w-md select-none overflow-hidden rounded-3xl border border-white/10 bg-white/5"
         style={{ height: GAME_HEIGHT }}
         role="img"
         aria-label="Área de juego: plátano corredor"
@@ -224,7 +224,7 @@ export default function BananaRunner() {
         {/* Pantalla inicial */}
         {gameState === 'idle' && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/40 text-center">
-            <p className="text-sm font-bold uppercase tracking-widest text-[#E3F237]">
+            <p className="text-sm font-bold uppercase tracking-widest text-[var(--banana-yellow)]">
               Presiona ↑ para empezar
             </p>
           </div>
@@ -239,7 +239,7 @@ export default function BananaRunner() {
             <p className="text-xs font-medium text-white/70">
               Puntaje obtenido: <span className="text-white font-bold">{score}</span>
             </p>
-            <p className="mt-1 text-xs font-bold uppercase tracking-widest text-[#E3F237]">
+            <p className="mt-1 text-xs font-bold uppercase tracking-widest text-[var(--banana-yellow)]">
               Presiona espacio para reintentar
             </p>
           </div>

@@ -7,10 +7,10 @@ import brandonImg from "../assets/Brandon.png";
 import "../styles/contact.css";
 
 const team = [
-  { name: "Luis", image: luisImg, color: "#eff0e6" },
-  { name: "Yahir", image: yahirImg, color: "#f6ebc4" },
-  { name: "Ernesto", image: ernestoImg, color: "#e3edef" },
-  { name: "Brandon", image: brandonImg, color: "#ece7dc" },
+  { name: "Luis", image: luisImg },
+  { name: "Yahir", image: yahirImg },
+  { name: "Ernesto", image: ernestoImg },
+  { name: "Brandon", image: brandonImg },
 ];
 
 export default function ContactSection() {
@@ -44,13 +44,12 @@ export default function ContactSection() {
         <div className="contact-intro">
           <div data-reveal="rise">
             <h2 id="contact-title">¿Maduramos<br /><span>una idea?</span></h2>
-            <p className="contact-intro__text">Una pregunta, una receta o una idea un poco fuera de la cáscara. Todo empieza por algo.</p>
           </div>
           <div className="contact-team" data-reveal="rise" data-reveal-delay="120">
-            <div className="contact-team__heading"><h3>El equipo detrás de la cáscara.</h3><p>Elige a alguien o escribe a todo el racimo.</p></div>
+            <div className="contact-team__heading"><h3>¿Para quién?</h3></div>
             <div className="contact-team__members" role="group" aria-label="Elegir a quién dirigir el mensaje">
               {team.map((member) => (
-                <button key={member.name} type="button" className="contact-member" style={{ "--member-color": member.color }} aria-pressed={recipient === member.name} aria-label={`Dirigir el mensaje a ${member.name}`} onClick={() => setRecipient((current) => current === member.name ? "" : member.name)}>
+                <button key={member.name} type="button" className="contact-member" aria-pressed={recipient === member.name} aria-label={`Dirigir el mensaje a ${member.name}`} onClick={() => setRecipient((current) => current === member.name ? "" : member.name)}>
                   <span className="contact-member__portrait"><img src={member.image} alt="" loading="lazy" decoding="async" draggable="false" /></span>
                   <span className="contact-member__name">{member.name}<span className="contact-member__selection" aria-hidden="true">{recipient === member.name ? "✓" : "+"}</span></span>
                 </button>
@@ -64,16 +63,14 @@ export default function ContactSection() {
               <div className="contact-field"><label htmlFor="contact-name">Tu nombre</label><input id="contact-name" name="name" autoComplete="name" placeholder="¿Cómo te llamas?" maxLength={80} /></div>
               <div className="contact-field"><label htmlFor="contact-email">Tu correo</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder="tu@correo.com" maxLength={254} /></div>
             </div>
-            <div className="contact-field"><label htmlFor="contact-topic">¿De qué hablamos?</label><select id="contact-topic" name="topic" defaultValue="Una idea"><option>Una idea</option><option>Una pregunta</option><option>Una receta</option><option>Algo más</option></select></div>
             <div className="contact-field"><label htmlFor="contact-message">Tu mensaje</label><textarea id="contact-message" name="message" rows={4} placeholder="Tengo una idea que está en su punto…" maxLength={2000} /></div>
             <div className="contact-recipient" aria-live="polite"><span>Para: <strong>{recipient || "todo el equipo"}</strong></span>{recipient && <button type="button" onClick={() => setRecipient("")}>Cambiar a todo el equipo</button>}</div>
             <button className="contact-submit" type="submit" aria-describedby="contact-demo-note">Enviar mensaje</button>
-            <p id="contact-demo-note" className="contact-form__note">Por ahora, solo llueven plátanos. No se envían mensajes.</p>
+            <p id="contact-demo-note" className="contact-form__note">Demo: el mensaje no se enviará.</p>
             <span className="sr-only" role="status">{celebration ? "¡Lluvia de plátanos! Esto es una demostración; no se envió ningún mensaje." : ""}</span>
           </form>
         </div>
       </div>
-      <footer className="contact-footer"><a href="#inicio" aria-label="Plátanos, volver al inicio">Plátanos<span>.</span></a><p>Una página con mucho que pelar.</p><a href="#inicio" className="contact-back-top">Volver arriba</a></footer>
       {celebration && createPortal(
         <div key={celebration.id} className="banana-confetti" aria-hidden="true">
           {celebration.particles.map((style, index) => <span key={index} className="banana-confetti__piece" style={style}>🍌</span>)}

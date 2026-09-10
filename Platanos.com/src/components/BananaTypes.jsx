@@ -85,8 +85,8 @@ function BananaTypes() {
                         tabIndex={-1}
                         aria-hidden="true"
                         className="banana-map__geography"
-                        fill={isHighlighted ? activeType.accent : "#DEDED4"}
-                        stroke="#F8F7EF"
+                        fill={isHighlighted ? activeType.accent : "var(--color-border)"}
+                        stroke="var(--color-canvas)"
                         strokeWidth={0.5}
                         style={{
                             default: { outline: "none" },
@@ -187,7 +187,7 @@ function BananaTypes() {
                             >
                                 <Sphere
                                     id="banana-map-sphere"
-                                    fill="#F8F7EF"
+                                    fill="var(--color-canvas)"
                                     stroke="rgba(31, 31, 24, 0.13)"
                                     strokeWidth={0.7}
                                 />
