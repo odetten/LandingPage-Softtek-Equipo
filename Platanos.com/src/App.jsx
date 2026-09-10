@@ -13,7 +13,7 @@ const BananaComparisons = lazy(() => import("./components/BananaComparisons"));
 import BananaPrismHero from "./components/BananaPrismHero";
 import BananaNinja from "./components/BananaNinja";
 import InteractiveBanana from "./components/InteractiveBanana";
-
+import AlbumGalery from "./components/AlbumGalery"
 function App() {
   const revealRef = useScrollReveal();
   return (
@@ -25,6 +25,7 @@ function App() {
         <Beneficios />
         <BananasCarousel />
         <BananaPrismHero/>
+        <AlbumGalery/>
         <BananaTypes />
         <ComedianSection />
         <section id="interactivo" aria-label="Comparador de alturas en plátanos">
